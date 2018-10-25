@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -24,6 +25,7 @@ public class CsvUtility {
 			System.out.println("True");
 		}
 		CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+		List<CSVRecord> csvRecords = csvParser.getRecords();
 		for (CSVRecord csvRecord : csvParser) {
 			System.out.println(csvRecord + "There" + reader.ready());
 			// Accessing Values by Column Index

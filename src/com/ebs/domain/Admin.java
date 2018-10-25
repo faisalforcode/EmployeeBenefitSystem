@@ -9,5 +9,11 @@ package com.ebs.domain;
  */
 public class Admin {
 
+	private String name;
+	
+	private String username;
+	
+	private String password;
+	
 	
 }
