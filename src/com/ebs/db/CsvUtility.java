@@ -14,34 +14,18 @@ import org.apache.commons.csv.CSVRecord;
 import com.ebs.domain.Employee;
 
 public class CsvUtility {
+	String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId", "phone", "noOfDependents", "username",
+			"password" };
 
-	public Employee read(String filePath) throws IOException {
+	public List<Employee> read(String filePath) throws IOException {
 
-		System.out.println("In there");
 		Reader reader = Files.newBufferedReader(Paths.get(filePath));
 		File file = new File(filePath);
-		if(file.isDirectory());
-		{
-			System.out.println("True");
+		if (!file.isFile()) {
+			System.out.println("Error: File Does not exist " + file);
 		}
-		CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+		CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader(HEADERS).withFirstRecordAsHeader());
 		List<CSVRecord> csvRecords = csvParser.getRecords();
-		for (CSVRecord csvRecord : csvParser) {
-			System.out.println(csvRecord + "There" + reader.ready());
-			// Accessing Values by Column Index
-			String name = csvRecord.get(0);
-			String email = csvRecord.get(1);
-			String phone = csvRecord.get(2);
-			String country = csvRecord.get(3);
-
-			System.out.println("Record No - " + csvRecord.getRecordNumber());
-			System.out.println("---------------");
-			System.out.println("Name : " + name);
-			System.out.println("Email : " + email);
-			System.out.println("Phone : " + phone);
-			System.out.println("Country : " + country);
-			System.out.println("---------------\n\n");
-		}
 		csvParser.close();
 
 		return null;

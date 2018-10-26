@@ -3,36 +3,30 @@ package com.ebs.main;
 import java.io.IOException;
 
 import com.ebs.constants.FilePathConstants;
-import com.ebs.db.ConsoleReaderUtility;
+import com.ebs.controllers.Menus;
 import com.ebs.db.CsvUtility;
 
 public class EmployeeBenefitSystem {
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("Employee Benefit System:");
-
-		/**
-		 * Test DB here
-		 */
-		/*
-		 * DbConfig dbConfig = new DbConfig(); dbConfig.connect();
-		 */
-		login();
-		read();
-
+		System.out.println("╔═╗┌┬┐┌─┐┬  ┌─┐┬ ┬┌─┐┌─┐  ╔╗ ┌─┐┌┐┌┌─┐┌─┐┬┌┬┐  ╔═╗┬ ┬┌─┐┌┬┐┌─┐┌┬┐\r\n"
+				+ "║╣ │││├─┘│  │ │└┬┘├┤ ├┤   ╠╩╗├┤ │││├┤ ├┤ │ │   ╚═╗└┬┘└─┐ │ ├┤ │││\r\n"
+				+ "╚═╝┴ ┴┴  ┴─┘└─┘ ┴ └─┘└─┘  ╚═╝└─┘┘└┘└─┘└  ┴ ┴   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴\r\n" + "");
+		startMenu();
+		readCsv();
 	}
 
-	private static void login() {
-		System.out.println("Enter your username: ");
-		ConsoleReaderUtility cru = new ConsoleReaderUtility();
-		cru.readLine();
+	/**
+	 * 
+	 */
+	private static void startMenu() {
+		Menus menu = new Menus();
+		menu.displayMainMenu();
 	}
 
-	private static void read() throws IOException {
-		System.out.println("Hello there");
+	private static void readCsv() throws IOException {
 		CsvUtility csvUtility = new CsvUtility();
 		csvUtility.read(FilePathConstants.EMPLOYEE_CSV);
 	}
-	
-	
+
 }

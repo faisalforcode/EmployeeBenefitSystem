@@ -14,10 +14,10 @@ public class ConsoleReaderUtility {
 	 * 
 	 * @return
 	 */
-	public String readLine() {
+	public int readInt() {
 		in = new Scanner(System.in);
 
-		String readString = in.nextLine();
+		int readString = in.nextInt();
 
 		return readString;
 	}
