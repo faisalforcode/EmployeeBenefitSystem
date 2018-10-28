@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.ebs.constants.EmployeeEnum;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -14,20 +15,19 @@ import org.apache.commons.csv.CSVRecord;
 import com.ebs.domain.Employee;
 
 public class CsvUtility {
-	String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId", "phone", "noOfDependents", "username",
-			"password" };
+	//String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId", "phone", "noOfDependents", "username","password" };
 
-	public List<Employee> read(String filePath) throws IOException {
+	public List<CSVRecord> read(String filePath) throws IOException {
 
 		Reader reader = Files.newBufferedReader(Paths.get(filePath));
 		File file = new File(filePath);
 		if (!file.isFile()) {
 			System.out.println("Error: File Does not exist " + file);
 		}
-		CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader(HEADERS).withFirstRecordAsHeader());
+		CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader(EmployeeEnum.class).withFirstRecordAsHeader());
 		List<CSVRecord> csvRecords = csvParser.getRecords();
 		csvParser.close();
 
-		return null;
+		return csvRecords;
 	}
 }

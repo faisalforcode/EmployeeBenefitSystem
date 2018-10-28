@@ -5,7 +5,7 @@ package com.ebs.domain;
  * 
  * @author faisalkhan
  */
-public class Vendor {
+public class Vendor implements User {
 
 	private String name;
 

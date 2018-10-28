@@ -7,7 +7,7 @@ package com.ebs.domain;
  * @author faisalkhan
  *
  */
-public class Employee {
+public class Employee implements User{
 
 	/**
 	 * @return the ssn
@@ -40,14 +40,14 @@ public class Employee {
 	/**
 	 * @return the phone
 	 */
-	public int getPhone() {
+	public double getPhone() {
 		return phone;
 	}
 
 	/**
 	 * @param phone the phone to set
 	 */
-	public void setPhone(int phone) {
+	public void setPhone(double phone) {
 		this.phone = phone;
 	}
 
@@ -121,7 +121,7 @@ public class Employee {
 	/**
 	 * Phone Number
 	 */
-	private int phone;
+	private double phone;
 	
 	/**
 	 * No oF Dependents
@@ -183,4 +183,18 @@ public class Employee {
 		this.vendorName = vendorName;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee{" +
+				"name='" + name + '\'' +
+				", empId=" + empId +
+				", vendorName='" + vendorName + '\'' +
+				", ssn=" + ssn +
+				", policyId=" + policyId +
+				", phone=" + phone +
+				", noOfDependents=" + noOfDependents +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
 }

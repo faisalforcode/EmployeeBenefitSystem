@@ -17,7 +17,14 @@ public class ConsoleReaderUtility {
 	public int readInt() {
 		in = new Scanner(System.in);
 
-		int readString = in.nextInt();
+		int readInt = in.nextInt();
+
+		return readInt;
+	}
+
+	public String readString(){
+		in = new Scanner(System.in);
+		String readString = in.next();
 
 		return readString;
 	}
