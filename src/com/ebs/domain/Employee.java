@@ -7,7 +7,7 @@ package com.ebs.domain;
  * @author faisalkhan
  *
  */
-public class Employee implements User{
+public class Employee  implements User{
 
 	/**
 	 * @return the ssn

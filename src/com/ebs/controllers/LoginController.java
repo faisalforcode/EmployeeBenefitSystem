@@ -20,8 +20,8 @@ import org.apache.commons.csv.CSVRecord;
  */
 public class LoginController {
 
-	public boolean login(String username, String pwd, User user) throws IOException {
-
+	Employee emp = null;
+	public User login(String username, String pwd) throws IOException {
 		AtomicBoolean authenticated = new AtomicBoolean(false);
 		List<CSVRecord> userRecords;
 		CsvUtility csvUtility = new CsvUtility();
@@ -30,16 +30,15 @@ public class LoginController {
 		userRecords.forEach(record-> {
 			if(username.contentEquals(record.get(EmployeeEnum.username))&& pwd.contentEquals(record.get(EmployeeEnum.password))){
                 authenticated.set(true);
-                mapToUserObject(record,user);
+                emp = mapToUserObject(record);
             }
 		});
 
-		return authenticated.get();
+		return emp;
 
 	}
 
-    private Employee mapToUserObject(CSVRecord record, User user) {
-
+    private Employee mapToUserObject(CSVRecord record) {
 	    Employee empRecord = new Employee();
 	    empRecord.setEmpId(Integer.parseInt(record.get(EmployeeEnum.empId)));
 	    empRecord.setName(record.get(EmployeeEnum.name));

@@ -7,12 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import com.ebs.constants.EmployeeEnum;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import com.ebs.domain.Employee;
+import com.ebs.constants.EmployeeEnum;
 
 public class CsvUtility {
 	//String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId", "phone", "noOfDependents", "username","password" };

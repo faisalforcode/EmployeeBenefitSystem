@@ -9,7 +9,7 @@ package com.ebs.domain;
  * @author faisalkhan
  *
  */
-public class Manager implements User{
+public class Manager implements User {
 
 	/**
 	 * Name of the Manager
