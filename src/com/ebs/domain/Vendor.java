@@ -10,6 +10,11 @@ public class Vendor implements User {
 	private String name;
 
 	private int id;
+	
+	private String type;
+	
+	private String contact;
+	
 
 	/**
 	 * @return the name

@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.commons.csv.CSVRecord;
+
+import com.ebs.constants.AdminEnum;
 import com.ebs.constants.EmployeeEnum;
 import com.ebs.constants.FilePathConstants;
+import com.ebs.constants.ManagerEnum;
 import com.ebs.db.CsvUtility;
 import com.ebs.domain.Employee;
 import com.ebs.domain.User;
-import org.apache.commons.csv.CSVRecord;
 
 /**
  * @author faisal
@@ -23,12 +26,31 @@ public class LoginController {
 	public boolean login(String username, String pwd, User user) throws IOException {
 
 		AtomicBoolean authenticated = new AtomicBoolean(false);
-		List<CSVRecord> userRecords;
+		List<CSVRecord> userRecordsEmployee;
+		List<CSVRecord> userRecordsAdmin;
+		List<CSVRecord> userRecordsManager;
+		
 		CsvUtility csvUtility = new CsvUtility();
-		userRecords=csvUtility.read(FilePathConstants.EMPLOYEE_CSV);
-
-		userRecords.forEach(record-> {
+		userRecordsEmployee=csvUtility.read(FilePathConstants.EMPLOYEE_CSV);
+		userRecordsAdmin=csvUtility.read(FilePathConstants.ADMIN_CSV);
+		userRecordsManager=csvUtility.read(FilePathConstants.MANAGER_CSV);
+		
+		userRecordsEmployee.forEach(record-> {
 			if(username.contentEquals(record.get(EmployeeEnum.username))&& pwd.contentEquals(record.get(EmployeeEnum.password))){
+                authenticated.set(true);
+                mapToUserObject(record,user);
+            }
+		});
+		
+		userRecordsAdmin.forEach(record-> {
+			if(username.contentEquals(record.get(AdminEnum.username))&& pwd.contentEquals(record.get(AdminEnum.password))){
+                authenticated.set(true);
+                mapToUserObject(record,user);
+            }
+		});
+		
+		userRecordsManager.forEach(record-> {
+			if(username.contentEquals(record.get(ManagerEnum.username))&& pwd.contentEquals(record.get(ManagerEnum.password))){
                 authenticated.set(true);
                 mapToUserObject(record,user);
             }
