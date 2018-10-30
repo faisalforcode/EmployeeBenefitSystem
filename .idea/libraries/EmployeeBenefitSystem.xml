@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="EmployeeBenefitSystem">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/commons-csv-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/text-io-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/h2-1.4.197.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
