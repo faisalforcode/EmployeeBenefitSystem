@@ -130,8 +130,8 @@ public class Menus {
         System.out.println("Please select options from the menu below: ");
         System.out.println("1. Add Vendor");
         System.out.println("2. Modify Vendor.");
-        System.out.println("5. Go Back.");
-        System.out.println("5. Exit.");
+        System.out.println("3. Go Back.");
+        System.out.println("4. Exit.");
         makechoice = cru.readInt();
     }
 
