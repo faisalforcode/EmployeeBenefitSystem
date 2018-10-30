@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ebs.controllers;
 
 import java.io.IOException;
@@ -23,7 +20,7 @@ import com.ebs.domain.User;
  */
 public class LoginController {
 
-	public boolean login(String username, String pwd, User user) throws IOException {
+	public boolean login(String username, String pwd) throws IOException {
 
 		AtomicBoolean authenticated = new AtomicBoolean(false);
 		List<CSVRecord> userRecordsEmployee;
@@ -38,21 +35,21 @@ public class LoginController {
 		userRecordsEmployee.forEach(record-> {
 			if(username.contentEquals(record.get(EmployeeEnum.username))&& pwd.contentEquals(record.get(EmployeeEnum.password))){
                 authenticated.set(true);
-                mapToUserObject(record,user);
+                mapToUserObject(record);
             }
 		});
 		
 		userRecordsAdmin.forEach(record-> {
 			if(username.contentEquals(record.get(AdminEnum.username))&& pwd.contentEquals(record.get(AdminEnum.password))){
                 authenticated.set(true);
-                mapToUserObject(record,user);
+                mapToUserObject(record);
             }
 		});
 		
 		userRecordsManager.forEach(record-> {
 			if(username.contentEquals(record.get(ManagerEnum.username))&& pwd.contentEquals(record.get(ManagerEnum.password))){
                 authenticated.set(true);
-                mapToUserObject(record,user);
+                mapToUserObject(record);
             }
 		});
 
@@ -60,7 +57,7 @@ public class LoginController {
 
 	}
 
-    private Employee mapToUserObject(CSVRecord record, User user) {
+    private Employee mapToUserObject(CSVRecord record) {
 
 	    Employee empRecord = new Employee();
 	    empRecord.setEmpId(Integer.parseInt(record.get(EmployeeEnum.empId)));
@@ -76,4 +73,3 @@ public class LoginController {
         return empRecord;
     }
 }
-
