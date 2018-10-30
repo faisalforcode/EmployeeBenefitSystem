@@ -11,6 +11,7 @@ public class Menus {
 	LoginController loginController;
 	private String username;
 	private String password;
+	private int makechoice;
 
 	{
 		loginController = new LoginController();
@@ -62,4 +63,78 @@ public class Menus {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * employee main menu
+	 */
+	private void employeemainmenu(ConsoleReaderUtility cru) {
+
+		System.out.println("Please select options from the menu below: ");
+		System.out.println("1. View/Maintain Profile.");
+		System.out.println("2. Make Elections.");
+        System.out.println("3. Check status.");
+        System.out.println("4. Exit.");
+        makechoice = cru.readInt();
+	}
+
+    /**
+     * admin main menu
+     */
+    private void adminmainmenu(ConsoleReaderUtility cru) {
+
+        System.out.println("Please select options from the menu below: ");
+        System.out.println("1. View/Maintain Profile.");
+        System.out.println("2. Make Elections.");
+        System.out.println("3. Check status.");
+        System.out.println("4. Create/Modify User.");
+        System.out.println("5. Start/Stop System.");
+        System.out.println("6. Exit.");
+        makechoice = cru.readInt();
+    }
+
+    /**
+     * manager main menu
+     */
+    private void managermainmenu(ConsoleReaderUtility cru) {
+
+        System.out.println("Please select options from the menu below: ");
+        System.out.println("1. View/Maintain Profile.");
+        System.out.println("2. Make Elections.");
+        System.out.println("3. Check status.");
+        System.out.println("4. Generate BI Report.");
+        System.out.println("5. Manager Vendor.");
+        System.out.println("6. Exit.");
+        makechoice = cru.readInt();
+    }
+
+    /**
+     *  Choose the vendor
+     */
+    private void choosevendor(ConsoleReaderUtility cru) {
+
+        System.out.println("Please select options from the menu below: ");
+        System.out.println("1. Kaiser - Healthcare.");
+        System.out.println("2. BlueCross - Healthcare.");
+        System.out.println("3. Metlife - Life Insurance.");
+        System.out.println("4. DDs - Dental.");
+        System.out.println("5. Go Back.");
+        System.out.println("6. Exit.");
+        makechoice = cru.readInt();
+    }
+
+    /**
+     *  vendor main menu
+     */
+    private void vendormainmenu(ConsoleReaderUtility cru) {
+
+        System.out.println("Please select options from the menu below: ");
+        System.out.println("1. Add Vendor");
+        System.out.println("2. Modify Vendor.");
+        System.out.println("5. Go Back.");
+        System.out.println("5. Exit.");
+        makechoice = cru.readInt();
+    }
+
+
+
 }
