@@ -7,11 +7,11 @@ package com.ebs.domain;
  * @author faisal
  *
  */
-public class Admin implements User {
+public class Admin extends User {
 
-	private String name;
-	
-	private String username;
-	
-	private String password;
+	public Admin(String name, int empId, String phone, String username, String password, String type, int ssn) {
+		super(name, empId, phone, username, password, type, ssn);
+		// TODO Auto-generated constructor stub
+	}
+
 }

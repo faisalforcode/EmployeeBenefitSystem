@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ebs.domain;
 
 /**
@@ -9,50 +6,10 @@ package com.ebs.domain;
  * @author faisalkhan
  *
  */
-public class Manager implements User {
+public class Manager extends User {
 
-	/**
-	 * Name of the Manager
-	 */
-	private String name;
-
-	/**
-	 * Id of the Manager for org
-	 */
-	private int empId;
-
-	private String username;
-
-	private String password;
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	public Manager(String name, int empId, String phone, String username, String password, String type, int ssn
+			) {
+		super(name, empId, phone, username, password, type, ssn);
 	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the empId
-	 */
-	public int getEmpId() {
-		return empId;
-	}
-
-	/**
-	 * @param empId
-	 *            the empId to set
-	 */
-	public void setEmpId(int empId) {
-		this.empId = empId;
-	}
-
 }

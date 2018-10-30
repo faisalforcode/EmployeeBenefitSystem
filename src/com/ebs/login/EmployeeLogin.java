@@ -5,5 +5,5 @@ package com.ebs.login;
  *
  */
 public class EmployeeLogin {
-
+	
 }

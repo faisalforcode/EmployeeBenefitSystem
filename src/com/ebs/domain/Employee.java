@@ -7,48 +7,52 @@ package com.ebs.domain;
  * @author faisalkhan
  *
  */
-public class Employee implements User{
+public class Employee extends User {
 
-	/**
-	 * @return the ssn
-	 */
-	public int getSsn() {
-		return ssn;
+	public Employee(String name, int empId, String phone, String username, String password, String type,
+			int noOfDependents, String policyType, int ssn, String vendorName) {
+		super(name, empId, phone, username, password, type, ssn);
+		this.noOfDependents = noOfDependents;
+		this.policyType = policyType;
+		this.vendorName = vendorName;
 	}
 
 	/**
-	 * @param ssn the ssn to set
+	 * Employee Id for the Org
 	 */
-	public void setSsn(int ssn) {
-		this.ssn = ssn;
+
+	/**
+	 * The name of the Vendor the employee has enrolled with
+	 */
+	private String vendorName;
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * Policy Id of the employee
+	 */
+	private String policyType;
+
+	/**
+	 * Phone Number
+	 */
+
+	private int noOfDependents;
+
+	/**
+	 * @return the vendorName
+	 */
+	public String getVendorName() {
+		return vendorName;
 	}
 
 	/**
-	 * @return the policyId
+	 * @param vendorName the vendorName to set
 	 */
-	public int getPolicyId() {
-		return policyId;
-	}
-
-	/**
-	 * @param policyId the policyId to set
-	 */
-	public void setPolicyId(int policyId) {
-		this.policyId = policyId;
-	}
-
-	/**
-	 * @return the phone
-	 */
-	public double getPhone() {
-		return phone;
-	}
-
-	/**
-	 * @param phone the phone to set
-	 */
-	public void setPhone(double phone) {
-		this.phone = phone;
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
 	}
 
 	/**
@@ -65,136 +69,17 @@ public class Employee implements User{
 		this.noOfDependents = noOfDependents;
 	}
 
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
+	public String getPolicyType() {
+		return policyType;
 	}
 
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * Name of the Employee
-	 */
-	private String name;
-
-	/**
-	 * Employee Id for the Org
-	 */
-	private int empId;
-
-	/**
-	 * The name of the Vendor the employee has enrolled with
-	 */
-	private String vendorName;
-	
-	/**
-	 * 
-	 */
-	private int ssn;
-	
-	/**
-	 * Policy Id of the employee
-	 */
-	private int policyId;
-	
-	/**
-	 * Phone Number
-	 */
-	private double phone;
-	
-	/**
-	 * No oF Dependents
-	 */
-	private int noOfDependents;
-	
-	/**
-	 * Username of the employee
-	 */
-	private String username;
-	
-	/**
-	 * password of the employee
-	 */
-	private String password;
-	
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the empId
-	 */
-	public int getEmpId() {
-		return empId;
-	}
-
-	/**
-	 * @param empId
-	 *            the empId to set
-	 */
-	public void setEmpId(int empId) {
-		this.empId = empId;
-	}
-
-	/**
-	 * @return the vendorName
-	 */
-	public String getVendorName() {
-		return vendorName;
-	}
-
-	/**
-	 * @param vendorName
-	 *            the vendorName to set
-	 */
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
+	public void setPolicyType(String policyType) {
+		this.policyType = policyType;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee{" +
-				"name='" + name + '\'' +
-				", empId=" + empId +
-				", vendorName='" + vendorName + '\'' +
-				", ssn=" + ssn +
-				", policyId=" + policyId +
-				", phone=" + phone +
-				", noOfDependents=" + noOfDependents +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				'}';
+		return "Employee [vendorName=" + vendorName + ",  policyType=" + policyType
+				+ ", noOfDependents=" + noOfDependents + "]";
 	}
 }

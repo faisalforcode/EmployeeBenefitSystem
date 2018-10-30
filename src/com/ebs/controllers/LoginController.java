@@ -2,16 +2,15 @@ package com.ebs.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.csv.CSVRecord;
 
-import com.ebs.constants.AdminEnum;
-import com.ebs.constants.EmployeeEnum;
 import com.ebs.constants.FilePathConstants;
-import com.ebs.constants.ManagerEnum;
+import com.ebs.constants.UsersEnum;
 import com.ebs.db.CsvUtility;
+import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
+import com.ebs.domain.Manager;
 import com.ebs.domain.User;
 
 /**
@@ -20,56 +19,42 @@ import com.ebs.domain.User;
  */
 public class LoginController {
 
-	public boolean login(String username, String pwd) throws IOException {
+	public User login(String username, String pwd) throws IOException {
 
-		AtomicBoolean authenticated = new AtomicBoolean(false);
+		User user = null;
 		List<CSVRecord> userRecordsEmployee;
-		List<CSVRecord> userRecordsAdmin;
-		List<CSVRecord> userRecordsManager;
-		
+
 		CsvUtility csvUtility = new CsvUtility();
-		userRecordsEmployee=csvUtility.read(FilePathConstants.EMPLOYEE_CSV);
-		userRecordsAdmin=csvUtility.read(FilePathConstants.ADMIN_CSV);
-		userRecordsManager=csvUtility.read(FilePathConstants.MANAGER_CSV);
-		
-		userRecordsEmployee.forEach(record-> {
-			if(username.contentEquals(record.get(EmployeeEnum.username))&& pwd.contentEquals(record.get(EmployeeEnum.password))){
-                authenticated.set(true);
-                mapToUserObject(record);
-            }
-		});
-		
-		userRecordsAdmin.forEach(record-> {
-			if(username.contentEquals(record.get(AdminEnum.username))&& pwd.contentEquals(record.get(AdminEnum.password))){
-                authenticated.set(true);
-                mapToUserObject(record);
-            }
-		});
-		
-		userRecordsManager.forEach(record-> {
-			if(username.contentEquals(record.get(ManagerEnum.username))&& pwd.contentEquals(record.get(ManagerEnum.password))){
-                authenticated.set(true);
-                mapToUserObject(record);
-            }
-		});
+		userRecordsEmployee = csvUtility.read(FilePathConstants.USERS_CSV);
 
-		return authenticated.get();
-
+		for (CSVRecord csvRecord : userRecordsEmployee) {
+			if (username.contentEquals(csvRecord.get(UsersEnum.username))
+					&& pwd.contentEquals(csvRecord.get(UsersEnum.password))) {
+				user = getUserInstance(csvRecord);
+				break;
+			}
+		}
+		return user;
 	}
 
-    private Employee mapToUserObject(CSVRecord record) {
-
-	    Employee empRecord = new Employee();
-	    empRecord.setEmpId(Integer.parseInt(record.get(EmployeeEnum.empId)));
-	    empRecord.setName(record.get(EmployeeEnum.name));
-	    empRecord.setNoOfDependents(Integer.parseInt(record.get(EmployeeEnum.noOfDependents)));
-	    empRecord.setPhone(Double.parseDouble(record.get(EmployeeEnum.phone)));
-	    empRecord.setPolicyId(Integer.parseInt(record.get(EmployeeEnum.policyId)));
-	    empRecord.setSsn(Integer.parseInt(record.get(EmployeeEnum.ssn)));
-	    empRecord.setVendorName(record.get(EmployeeEnum.vendorName));
-	    empRecord.setUsername(record.get(EmployeeEnum.username));
-	    empRecord.setPassword(record.get(EmployeeEnum.password));
-        System.out.println(empRecord.toString());
-        return empRecord;
-    }
+	public User getUserInstance(CSVRecord record) {
+		String type = record.get(UsersEnum.type);
+		User user = null;
+		if (type.equals("E")) {
+			user = new Employee(record.get(UsersEnum.name), Integer.parseInt(record.get(UsersEnum.empId)),
+					record.get(UsersEnum.phone), record.get(UsersEnum.username), record.get(UsersEnum.password),
+					record.get(UsersEnum.type), Integer.parseInt(record.get(UsersEnum.noOfDependents)),
+					record.get(UsersEnum.policyId), Integer.parseInt(record.get(UsersEnum.ssn)),
+					record.get(UsersEnum.vendorName));
+		} else if (type.equals("M")) {
+			user = new Manager(record.get(UsersEnum.name), Integer.parseInt(record.get(UsersEnum.empId)),
+					record.get(UsersEnum.phone), record.get(UsersEnum.username), record.get(UsersEnum.password),
+					record.get(UsersEnum.type), Integer.parseInt(record.get(UsersEnum.ssn)));
+		} else if (type.equals("A")) {
+			user = new Admin(record.get(UsersEnum.name), Integer.parseInt(record.get(UsersEnum.empId)),
+					record.get(UsersEnum.phone), record.get(UsersEnum.username), record.get(UsersEnum.password),
+					record.get(UsersEnum.type), Integer.parseInt(record.get(UsersEnum.ssn)));
+		}
+		return user;
+	}
 }
