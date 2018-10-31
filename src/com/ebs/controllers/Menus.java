@@ -2,7 +2,9 @@ package com.ebs.controllers;
 
 import java.io.IOException;
 
+import com.ebs.constants.FilePathConstants;
 import com.ebs.db.ConsoleReaderUtility;
+import com.ebs.db.CsvUtility;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
@@ -68,7 +70,7 @@ public class Menus {
 				} else if (userInstance instanceof Admin) {
 					Admin admin = (Admin) userInstance;
 					adminMainMenu(admin);
-				} else if (user instanceof Manager) {
+				} else if (userInstance instanceof Manager) {
 					Manager manager = (Manager) userInstance;
 					managerMainMenu(manager);
 				}
@@ -82,8 +84,9 @@ public class Menus {
 	 * Employee Main Menu
 	 * 
 	 * @param userInstance
+	 * @throws IOException
 	 */
-	private void employeeMainMenu(Employee emp) {
+	private void employeeMainMenu(Employee emp) throws IOException {
 
 		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
@@ -96,6 +99,7 @@ public class Menus {
 
 		if (menuItem == 1) {
 			profileViewMaintainMenu(emp);
+
 		} else if (menuItem == 2) {
 			makeElections();
 		} else if (menuItem == 3) {
@@ -111,7 +115,7 @@ public class Menus {
 		System.out.println("");
 	}
 
-	private void checkEnrollmentStatus(Employee emp) {
+	private void checkEnrollmentStatus(Employee emp) throws IOException {
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp)) || "".equals(emp)) {
 			System.out.println("\nYou are not enrolled...please select Make Election below to enroll\n");
 			employeeMainMenu(emp);
@@ -122,8 +126,10 @@ public class Menus {
 
 	/**
 	 * admin main menu
+	 * 
+	 * @throws IOException
 	 */
-	private void adminMainMenu(Admin admin) {
+	private void adminMainMenu(Admin admin) throws IOException {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
@@ -134,23 +140,76 @@ public class Menus {
 		if (menuItem == 1) {
 			profileViewMaintainMenu(admin);
 		} else if (menuItem == 2) {
-			createModifyUser();
+			createModifyUser(admin);
 		} else if (menuItem == 3) {
 			exitSystem();
 		}
 	}
 
-	private void createModifyUser() {
-		// TODO Auto-generated method stub
-		
+	private void createModifyUser(Admin admin) throws IOException {
+		System.out.println("\n Please select an option to continue:");
+		System.out.println("1. Create User");
+		System.out.println("2. Modify User");
+		System.out.println("3. Go Back");
+		System.out.println("4. Exit");
+		int selection = cru.readInt();
+		if (1 == selection) {
+			createUser(admin);
+		} else if (1 == selection) {
+			modifyUser(admin);
+		} else if (3 == selection) {
+			adminMainMenu(admin);
+		} else if (4 == selection) {
+			exitSystem();
+		} else {
+
+		}
+
+	}
+
+	private void modifyUser(Admin admin) {
+
+	}
+
+	private void createUser(Admin admin) throws IOException {
+		System.out.println("\n Enter the following details for the new user");
+		System.out.println("Enter type of user: (E|M|A): ");
+		String type = cru.readString();
+		System.out.println("Enter name for the user:");
+		String name = cru.readString();
+		System.out.println("Enter Employee ID (Numbers only): ");
+		int empId = cru.readInt();
+		System.out.println("Enter Phone number: ");
+		String phone = cru.readString();
+		System.out.println("Enter username: ");
+		String username = cru.readString();
+		System.out.println("Enter temporary password: ");
+		String password = cru.readString();
+		System.out.println("Enter SSN (numbers only): ");
+		int ssn = cru.readInt();
+
+		if ("M".equalsIgnoreCase(type)) {
+			Manager manager = new Manager(name, empId, phone, username, password, type, ssn);
+			CsvUtility csvUtility = new CsvUtility();
+			csvUtility.write(FilePathConstants.USERS_CSV, manager);
+		} else if ("E".equalsIgnoreCase(type)) {
+
+			Employee employee = new Employee(name, empId, phone, username, password, type, 0, null, ssn, null);
+			CsvUtility csvUtility = new CsvUtility();
+			csvUtility.write(FilePathConstants.USERS_CSV, employee);
+		} else if ("A".equalsIgnoreCase(type)) {
+
+		}
 	}
 
 	/**
 	 * manager main menu
+	 * 
+	 * @throws IOException
 	 */
-	private void managerMainMenu(Manager manager) {
+	private void managerMainMenu(Manager manager) throws IOException {
 
-		System.out.println("Please select options from the menu below: ");
+		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Generate BI Report.");
 		System.out.println("3. Manager Vendor.");
@@ -162,10 +221,15 @@ public class Menus {
 		} else if (menuItem == 2) {
 
 		} else if (menuItem == 3) {
-
+			generateBiReports();
 		} else if (menuItem == 4) {
 			exitSystem();
 		}
+	}
+
+	private void generateBiReports() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -196,7 +260,7 @@ public class Menus {
 		int selection = cru.readInt();
 	}
 
-	private void profileViewMaintainMenu(Object obj) {
+	private void profileViewMaintainMenu(Object obj) throws IOException {
 		System.out.println("\n1. View Profile");
 		System.out.println("2. Maintain Profile");
 		System.out.println("3. Go back");
@@ -215,8 +279,7 @@ public class Menus {
 			} else if (4 == selection) {
 				exitSystem();
 			}
-		}
-		else if (obj instanceof Manager) {
+		} else if (obj instanceof Manager) {
 			Manager manager = (Manager) obj;
 			if (1 == selection) {
 				pvc.viewProfile(manager);
@@ -228,12 +291,10 @@ public class Menus {
 			} else if (4 == selection) {
 				exitSystem();
 			}
-		}
-		else if (obj instanceof Admin) {
+		} else if (obj instanceof Admin) {
 			Admin admin = (Admin) obj;
 			if (1 == selection) {
 				pvc.viewProfile(admin);
-
 			} else if (2 == selection) {
 
 			} else if (3 == selection) {
