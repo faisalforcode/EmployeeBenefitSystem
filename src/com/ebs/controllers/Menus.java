@@ -257,8 +257,30 @@ public class Menus {
 		System.out.println("2. Modify Vendor.");
 		System.out.println("3. Go Back.");
 		System.out.println("4. Exit.");
-		int selection = cru.readInt();
+		int menuitem
+                = cru.readInt();
+
+		if (menuitem == 1){
+			addvendordetails();
+		} else if (menuitem == 2){
+			//modifyvendordetails();
+		} else if (menuitem == 3) {
+
+		} else if (menuitem == 4){
+			exitSystem();
+		}
 	}
+
+	private addvendordetails(){
+        String vendorname, vendortype, vendorcont;
+        System.out.println("You have chosen to add new vendor.");
+        System.out.println("Please enter the vendor name : ");
+        vendorname = cru.readString();
+        System.out.println("Please enter the vendor type: ");
+        vendortype = cru.readString();
+        System.out.println("Please enter the name of contact person: ");
+        vendorcont = cru.readString();
+    }
 
 	private void profileViewMaintainMenu(Object obj) throws IOException {
 		System.out.println("\n1. View Profile");
