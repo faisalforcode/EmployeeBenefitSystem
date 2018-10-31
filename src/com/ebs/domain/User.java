@@ -3,7 +3,6 @@ package com.ebs.domain;
 public class User {
 
 	public User(String name, int empId, String phone, String username, String password, String type, int ssn) {
-		System.out.println("SSN in user"+ssn);
 		this.name = name;
 		this.empId = empId;
 		this.phone = phone;

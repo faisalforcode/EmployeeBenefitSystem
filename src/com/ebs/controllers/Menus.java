@@ -1,6 +1,7 @@
 package com.ebs.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.ebs.constants.FilePathConstants;
 import com.ebs.db.ConsoleReaderUtility;
@@ -209,7 +210,6 @@ public class Menus {
 	 * @throws IOException
 	 */
 	private void managerMainMenu(Manager manager) throws IOException {
-
 		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Generate BI Report.");
@@ -228,15 +228,79 @@ public class Menus {
 		}
 	}
 
-	private void generateBiReports(Manager manager) {
-		// TODO Auto-generated method stub
+	private void generateBiReports(Manager manager) throws IOException {
+		BiReportingController brc = new BiReportingController();
+		System.out.println("\n Select which Report you would like to see:");
+		System.out.println("1. Employees with No Enrollment");
+		System.out.println("2. Employees with particular Vendor.");
+		System.out.println("3. Employees with Insurance Type.");
+		System.out.println("4. Go back");
+		System.out.println("5. Exit");
+		int selection = cru.readInt();
+
+		if (1 == selection) {
+			List<User> users = brc.generateReportforEmployeeWithNoEnrollment();
+			printReportForNoInsuranUsers(users, manager);
+		} else if (2 == selection) {
+			List<User> users = brc.generateReportForEmployeeInsuranceType();
+			printReportForVendorDistribution(users, manager);
+		} else if (3 == selection) {
+			List<User> users = brc.generateReportForEmployeeInsuranceType();
+			printReportforInsuranceType(users, manager);
+		} else if (4 == selection) {
+			managerMainMenu(manager);
+		} else if (5 == selection) {
+			exitSystem();
+		} else {
+			System.out.println("\nInvalid option.. Select Again");
+			generateBiReports(manager);
+		}
+	}
+
+	private void printReportForVendorDistribution(List<User> users, Manager manager) throws IOException {
+		System.out.println("\n###REPORT OF EMPOYEES AND Vendor###");
+		System.out.println("______________________________________________");
+		System.out.println("\nName\t\t\t\tEmployee ID\t\t\tVendor");
+		for (User user : users) {
+			Employee employee = (Employee) user;
+			System.out
+					.println(employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getVendorName());
+		}
+		System.out.println("\n\nGenerate Another report");
+		generateBiReports(manager);
+	}
+
+	private void printReportforInsuranceType(List<User> users, Manager manager) throws IOException {
+		System.out.println("\n###REPORT OF EMPOYEES AND INSURANCE TYPE###");
+		System.out.println("______________________________________________");
+		System.out.println("\nName\t\t\t\tEmployee ID\t\t\tInsurance Type");
+		for (User user : users) {
+			Employee employee = (Employee) user;
+			System.out
+					.println(employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getPolicyType());
+		}
+		System.out.println("\n\nGenerate Another report");
+		generateBiReports(manager);
+	}
+
+	private void printReportForNoInsuranUsers(List<User> users, Manager manager) throws IOException {
+		System.out.println("\n###REPORT OF EMPOYEES WITH NO INSURANCE###");
+		System.out.println("______________________________________________");
+		System.out.println("Total number of Employees with No Enrollment: " + users.size());
+		System.out.println("\nName\t\t\t\tEmployee ID\t\t\tSSN");
+		for (User user : users) {
+			System.out.println(user.getName() + "\t\t\t\t" + user.getEmpId() + "\t\t\t" + user.getSsn());
+		}
+		System.out.println("\n\nGenerate Another report");
+		generateBiReports(manager);
 
 	}
 
 	/**
 	 * vendor main menu
-	 * @param manager 
-	 * @throws IOException 
+	 * 
+	 * @param manager
+	 * @throws IOException
 	 */
 	private void vendorMainMenu(Manager manager) throws IOException {
 
@@ -260,7 +324,7 @@ public class Menus {
 
 	private void modifyvendordetails() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void addVendorDetails() throws IOException {
