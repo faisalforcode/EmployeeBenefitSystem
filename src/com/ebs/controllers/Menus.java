@@ -9,6 +9,7 @@ import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 import com.ebs.domain.User;
+import com.ebs.domain.Vendor;
 
 public class Menus {
 
@@ -219,68 +220,62 @@ public class Menus {
 		if (menuItem == 1) {
 			profileViewMaintainMenu(manager);
 		} else if (menuItem == 2) {
-
+			generateBiReports(manager);
 		} else if (menuItem == 3) {
-			generateBiReports();
+			vendorMainMenu(manager);
 		} else if (menuItem == 4) {
 			exitSystem();
 		}
 	}
 
-	private void generateBiReports() {
+	private void generateBiReports(Manager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	/**
-	 * Choose the vendor
-	 */
-	private void chooseVendor() {
-
-		System.out.println("Please select options from the menu below: ");
-		System.out.println("1. Kaiser - Healthcare.");
-		System.out.println("2. BlueCross - Healthcare.");
-		System.out.println("3. Metlife - Life Insurance.");
-		System.out.println("4. DDs - Dental.");
-		System.out.println("5. Go Back.");
-		System.out.println("6. Exit.");
-		int selection = cru.readInt();
-	}
-
-	/**
 	 * vendor main menu
+	 * @param manager 
+	 * @throws IOException 
 	 */
-	private void vendorMainMenu() {
+	private void vendorMainMenu(Manager manager) throws IOException {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. Add Vendor");
 		System.out.println("2. Modify Vendor.");
 		System.out.println("3. Go Back.");
 		System.out.println("4. Exit.");
-		int menuitem
-                = cru.readInt();
+		int menuitem = cru.readInt();
 
-		if (menuitem == 1){
-			addvendordetails();
-		} else if (menuitem == 2){
-			//modifyvendordetails();
+		if (menuitem == 1) {
+			addVendorDetails();
+		} else if (menuitem == 2) {
+			modifyvendordetails();
 		} else if (menuitem == 3) {
-
-		} else if (menuitem == 4){
+			managerMainMenu(manager);
+		} else if (menuitem == 4) {
 			exitSystem();
 		}
 	}
 
-	private addvendordetails(){
-        String vendorname, vendortype, vendorcont;
-        System.out.println("You have chosen to add new vendor.");
-        System.out.println("Please enter the vendor name : ");
-        vendorname = cru.readString();
-        System.out.println("Please enter the vendor type: ");
-        vendortype = cru.readString();
-        System.out.println("Please enter the name of contact person: ");
-        vendorcont = cru.readString();
-    }
+	private void modifyvendordetails() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addVendorDetails() throws IOException {
+		String vendorName, vendorType, vendorContact = null;
+		System.out.println("You have chosen to add new vendor.");
+		System.out.println("Please enter the vendor name : ");
+		vendorName = cru.readString();
+		System.out.println("Please enter the vendor type: ");
+		vendorType = cru.readString();
+		System.out.println("Please enter the name of contact person: ");
+		vendorContact = cru.readString();
+		CsvUtility csvUtility = new CsvUtility();
+		Vendor vendor = new Vendor(vendorName, vendorType, vendorContact);
+		csvUtility.write(FilePathConstants.VENDOR_CSV, vendor);
+	}
 
 	private void profileViewMaintainMenu(Object obj) throws IOException {
 		System.out.println("\n1. View Profile");

@@ -19,6 +19,7 @@ import com.ebs.constants.UsersEnum;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
+import com.ebs.domain.Vendor;
 
 public class CsvUtility {
 	// String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId",
@@ -41,11 +42,11 @@ public class CsvUtility {
 
 	public boolean write(String filePath, Object obj) throws IOException {
 		final String NEW_LINE_SEPARATOR = "\n";
-		FileWriter fileWriter = new FileWriter(FilePathConstants.USERS_CSV,true);
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
-		CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
-		
+
 		if (obj instanceof Employee) {
+			FileWriter fileWriter = new FileWriter(FilePathConstants.USERS_CSV, true);
+			CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
 			Employee employee = (Employee) obj;
 			List<String> employeeDataRecord = new ArrayList<String>();
 			employeeDataRecord.add(employee.getName());
@@ -58,21 +59,34 @@ public class CsvUtility {
 			employeeDataRecord.add(employee.getUsername());
 			employeeDataRecord.add(employee.getPassword());
 			employeeDataRecord.add(employee.getType());
-			
+
 			csvFilePrinter.printRecord(employeeDataRecord);
-			
+
 			System.out.println("\nNew user updated...");
+			fileWriter.flush();
+			fileWriter.close();
+			csvFilePrinter.close();
 		} else if (obj instanceof Manager) {
 			Manager employee = (Manager) obj;
-			csvFilePrinter.print(obj);
-				//TODO:
 		} else if (obj instanceof Admin) {
 
+		} else if (obj instanceof Vendor) {
+
+			FileWriter fileWriterVendor = new FileWriter(FilePathConstants.VENDOR_CSV, true);
+			CSVPrinter csvFilePrinterVendor = new CSVPrinter(fileWriterVendor, csvFileFormat);
+			Vendor vendor = (Vendor) obj;
+			System.out.println(vendor.getName());
+			List<String> vendorDataRecord = new ArrayList<String>();
+			vendorDataRecord.add(vendor.getName());
+			vendorDataRecord.add(vendor.getType());
+			vendorDataRecord.add(vendor.getContact());
+			csvFilePrinterVendor.printRecord(vendorDataRecord);
+			System.out.println("\nVendor Updated");
+			fileWriterVendor.flush();
+			fileWriterVendor.close();
+			csvFilePrinterVendor.close();
 		}
-		
-		fileWriter.flush();
-        fileWriter.close();
-		csvFilePrinter.close();
+
 		return false;
 	}
 }

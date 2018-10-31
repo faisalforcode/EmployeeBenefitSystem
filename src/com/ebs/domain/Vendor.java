@@ -7,9 +7,20 @@ package com.ebs.domain;
  */
 public class Vendor {
 
-	private String name;
+	/**
+	 * @param name
+	 * @param id
+	 * @param type
+	 * @param contact
+	 */
+	public Vendor(String name, String type, String contact) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.contact = contact;
+	}
 
-	private int id;
+	private String name;
 
 	private String type;
 
@@ -29,19 +40,6 @@ public class Vendor {
 		this.name = name;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the type
