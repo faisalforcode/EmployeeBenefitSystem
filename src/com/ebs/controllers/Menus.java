@@ -108,7 +108,7 @@ public class Menus {
 	}
 
 	private void makeElections() {
-
+		System.out.println("");
 	}
 
 	private void checkEnrollmentStatus(Employee emp) {
