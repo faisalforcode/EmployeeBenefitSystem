@@ -131,9 +131,20 @@ public class Menus {
 		System.out.println("2. Make Elections.");
 		System.out.println("3. Check status.");
 		System.out.println("4. Create/Modify User.");
-		System.out.println("5. Start/Stop System.");
-		System.out.println("6. Exit.");
-		int selection = cru.readInt();
+		System.out.println("5. Exit.");
+		int menuItem = cru.readInt();
+
+		if (menuItem == 1) {
+			profileViewMaintainMenu(admin);
+		} else if (menuItem == 2) {
+			makeElections();
+		} else if (menuItem == 3) {
+			checkEnrollmentStatus(admin);
+		} else if (menuItem == 4) {
+
+		} else if (menuItem == 5) {
+			exitSystem();
+		}
 	}
 
 	/**
@@ -143,12 +154,20 @@ public class Menus {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
-		System.out.println("2. Make Elections.");
-		System.out.println("3. Check status.");
-		System.out.println("4. Generate BI Report.");
-		System.out.println("5. Manager Vendor.");
-		System.out.println("6. Exit.");
-		int selection = cru.readInt();
+		System.out.println("2. Generate BI Report.");
+		System.out.println("3. Manager Vendor.");
+		System.out.println("4. Exit.");
+		int menuItem = cru.readInt();
+
+		if (menuItem == 1) {
+			profileViewMaintainMenu(manager);
+		}  else if (menuItem == 2) {
+
+		} else if (menuItem == 3) {
+
+		} else if (menuItem == 4) {
+			exitSystem();
+		}
 	}
 
 	/**
