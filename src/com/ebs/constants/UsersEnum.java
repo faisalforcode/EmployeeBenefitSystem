@@ -1,5 +1,5 @@
 package com.ebs.constants;
 
 public enum UsersEnum {
-	name, empId, vendorName, ssn, policyId, phone, noOfDependents, username, password, type
+	name, empId, vendorName, ssn, policytype, phone, noOfDependents, username, password, type
 }

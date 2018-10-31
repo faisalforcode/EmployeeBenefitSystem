@@ -115,8 +115,7 @@ public class Menus {
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp)) || "".equals(emp)) {
 			System.out.println("\nYou are not enrolled...please select Make Election below to enroll\n");
 			employeeMainMenu(emp);
-		}
-		else {
+		} else {
 			System.out.println("\n Congratulations!! You are already enrolled...");
 		}
 	}
@@ -128,23 +127,22 @@ public class Menus {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
-		System.out.println("2. Make Elections.");
-		System.out.println("3. Check status.");
-		System.out.println("4. Create/Modify User.");
-		System.out.println("5. Exit.");
+		System.out.println("2. Create/Modify User.");
+		System.out.println("3. Exit.");
 		int menuItem = cru.readInt();
 
 		if (menuItem == 1) {
 			profileViewMaintainMenu(admin);
 		} else if (menuItem == 2) {
-			makeElections();
+			createModifyUser();
 		} else if (menuItem == 3) {
-			checkEnrollmentStatus(admin);
-		} else if (menuItem == 4) {
-
-		} else if (menuItem == 5) {
 			exitSystem();
 		}
+	}
+
+	private void createModifyUser() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -161,7 +159,7 @@ public class Menus {
 
 		if (menuItem == 1) {
 			profileViewMaintainMenu(manager);
-		}  else if (menuItem == 2) {
+		} else if (menuItem == 2) {
 
 		} else if (menuItem == 3) {
 
@@ -198,20 +196,51 @@ public class Menus {
 		int selection = cru.readInt();
 	}
 
-	private void profileViewMaintainMenu(Employee emp) {
+	private void profileViewMaintainMenu(Object obj) {
 		System.out.println("\n1. View Profile");
 		System.out.println("2. Maintain Profile");
 		System.out.println("3. Go back");
 		System.out.println("4. Exit");
 		int selection = cru.readInt();
-		if (1 == selection) {
-			pvc.viewProfile(emp);
-		} else if (2 == selection) {
 
-		} else if (3 == selection) {
-			employeeMainMenu(emp);
-		} else if (4 == selection) {
-			exitSystem();
+		if (obj instanceof Employee) {
+			Employee emp = (Employee) obj;
+			if (1 == selection) {
+				pvc.viewProfile(emp);
+
+			} else if (2 == selection) {
+
+			} else if (3 == selection) {
+				employeeMainMenu(emp);
+			} else if (4 == selection) {
+				exitSystem();
+			}
+		}
+		else if (obj instanceof Manager) {
+			Manager manager = (Manager) obj;
+			if (1 == selection) {
+				pvc.viewProfile(manager);
+
+			} else if (2 == selection) {
+
+			} else if (3 == selection) {
+				managerMainMenu(manager);
+			} else if (4 == selection) {
+				exitSystem();
+			}
+		}
+		else if (obj instanceof Admin) {
+			Admin admin = (Admin) obj;
+			if (1 == selection) {
+				pvc.viewProfile(admin);
+
+			} else if (2 == selection) {
+
+			} else if (3 == selection) {
+				adminMainMenu(admin);
+			} else if (4 == selection) {
+				exitSystem();
+			}
 		}
 	}
 }

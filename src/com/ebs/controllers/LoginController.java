@@ -44,7 +44,7 @@ public class LoginController {
 			user = new Employee(record.get(UsersEnum.name), Integer.parseInt(record.get(UsersEnum.empId)),
 					record.get(UsersEnum.phone), record.get(UsersEnum.username), record.get(UsersEnum.password),
 					record.get(UsersEnum.type), Integer.parseInt(record.get(UsersEnum.noOfDependents)),
-					record.get(UsersEnum.policyId), Integer.parseInt(record.get(UsersEnum.ssn)),
+					record.get(UsersEnum.policytype), Integer.parseInt(record.get(UsersEnum.ssn)),
 					record.get(UsersEnum.vendorName));
 		} else if (type.equals("M")) {
 			user = new Manager(record.get(UsersEnum.name), Integer.parseInt(record.get(UsersEnum.empId)),
