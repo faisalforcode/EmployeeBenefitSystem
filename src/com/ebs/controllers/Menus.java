@@ -76,6 +76,12 @@ public class Menus {
 					Manager manager = (Manager) userInstance;
 					managerMainMenu(manager);
 				}
+			} else {
+			    System.out.println(" ");
+			    System.out.println("***********************************");
+				System.out.println("Please check your login credentials.");
+                System.out.println("***********************************");
+				displayMainMenu();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -103,7 +109,7 @@ public class Menus {
 			profileViewMaintainMenu(emp);
 
 		} else if (menuItem == 2) {
-			makeElections();
+			makeElections(emp);
 		} else if (menuItem == 3) {
 			checkEnrollmentStatus(emp);
 		} else if (menuItem == 4) {
@@ -113,8 +119,10 @@ public class Menus {
 		}
 	}
 
-	private void makeElections() {
-		System.out.println("");
+	private void makeElections(Employee emp) throws IOException {
+		System.out.println(" ");
+		System.out.println("Sorry, we are working on this part.");
+		employeeMainMenu(emp);
 	}
 
 	private void checkEnrollmentStatus(Employee emp) throws IOException {
@@ -123,6 +131,7 @@ public class Menus {
 			employeeMainMenu(emp);
 		} else {
 			System.out.println("\n Congratulations!! You are already enrolled...");
+			employeeMainMenu(emp);
 		}
 	}
 
@@ -136,14 +145,19 @@ public class Menus {
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Create/Modify User.");
-		System.out.println("3. Exit.");
+		System.out.println("3. Logout.");
+		System.out.println("4. Exit.");
 		int menuItem = cru.readInt();
 
 		if (menuItem == 1) {
 			profileViewMaintainMenu(admin);
+			System.out.println(" ");
+			profileViewMaintainMenu(admin);
 		} else if (menuItem == 2) {
 			createModifyUser(admin);
-		} else if (menuItem == 3) {
+		} else if(menuItem == 3){
+		    displayMainMenu();
+        } else if (menuItem == 4) {
 			exitSystem();
 		}
 	}
@@ -157,7 +171,7 @@ public class Menus {
 		int selection = cru.readInt();
 		if (1 == selection) {
 			createUser(admin);
-		} else if (1 == selection) {
+		} else if (2 == selection) {
 			modifyUser(admin);
 		} else if (3 == selection) {
 			adminMainMenu(admin);
@@ -169,8 +183,10 @@ public class Menus {
 
 	}
 
-	private void modifyUser(Admin admin) {
-
+	private void modifyUser(Admin admin) throws IOException {
+	    System.out.println("");
+	    System.out.println("Sorry! we are working on this part");
+	    createModifyUser(admin);
 	}
 
 	private void createUser(Admin admin) throws IOException {
@@ -202,6 +218,7 @@ public class Menus {
 		} else if ("A".equalsIgnoreCase(type)) {
 
 		}
+		createModifyUser(admin);
 	}
 
 	/**
@@ -214,7 +231,8 @@ public class Menus {
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Generate BI Report.");
 		System.out.println("3. Manager Vendor.");
-		System.out.println("4. Exit.");
+		System.out.println("4. Logout.");
+		System.out.println("5. Exit.");
 		int menuItem = cru.readInt();
 
 		if (menuItem == 1) {
@@ -223,7 +241,9 @@ public class Menus {
 			generateBiReports(manager);
 		} else if (menuItem == 3) {
 			vendorMainMenu(manager);
-		} else if (menuItem == 4) {
+		} else if(menuItem == 4) {
+		    displayMainMenu();
+        } else if (menuItem == 5) {
 			exitSystem();
 		}
 	}
@@ -313,8 +333,13 @@ public class Menus {
 
 		if (menuitem == 1) {
 			addVendorDetails();
+			System.out.println("");
+			vendorMainMenu(manager);
 		} else if (menuitem == 2) {
 			modifyvendordetails();
+			System.out.println("");
+			System.out.println("Sorry we are working on this part.");
+			vendorMainMenu(manager);
 		} else if (menuitem == 3) {
 			managerMainMenu(manager);
 		} else if (menuitem == 4) {
@@ -352,9 +377,11 @@ public class Menus {
 			Employee emp = (Employee) obj;
 			if (1 == selection) {
 				pvc.viewProfile(emp);
-
+				profileViewMaintainMenu(obj);
 			} else if (2 == selection) {
-
+			    System.out.println(" ");
+			    System.out.println("Sorry, we are working on this part");
+			    profileViewMaintainMenu(obj);
 			} else if (3 == selection) {
 				employeeMainMenu(emp);
 			} else if (4 == selection) {
@@ -364,9 +391,11 @@ public class Menus {
 			Manager manager = (Manager) obj;
 			if (1 == selection) {
 				pvc.viewProfile(manager);
-
+                profileViewMaintainMenu(obj);
 			} else if (2 == selection) {
-
+                System.out.println("");
+                System.out.println("Sorry! we are working on this part");
+                profileViewMaintainMenu(manager);
 			} else if (3 == selection) {
 				managerMainMenu(manager);
 			} else if (4 == selection) {
@@ -376,8 +405,11 @@ public class Menus {
 			Admin admin = (Admin) obj;
 			if (1 == selection) {
 				pvc.viewProfile(admin);
+				profileViewMaintainMenu(obj);
 			} else if (2 == selection) {
-
+			    System.out.println("");
+                System.out.println("Sorry! we are working on this part");
+                profileViewMaintainMenu(admin);
 			} else if (3 == selection) {
 				adminMainMenu(admin);
 			} else if (4 == selection) {
