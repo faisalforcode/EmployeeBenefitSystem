@@ -18,6 +18,9 @@ public class Menus {
 	LoginController loginController;
 	ConsoleReaderUtility cru = new ConsoleReaderUtility();
 	ProfileController pvc = new ProfileController();
+	CsvUtility csvUtility = new CsvUtility();
+	MakeElectionsController mec = new MakeElectionsController();
+
 	private String username;
 	private String password;
 
@@ -25,7 +28,8 @@ public class Menus {
 		loginController = new LoginController();
 	}
 
-	public void displayMainMenu() {
+	public void displayMainMenu() throws Exception {
+		//csvUtility.updateCsvFile();
 		System.out.println("\nSelect from the options below:");
 		System.out.println("1. Login ");
 		System.out.println("2. Exit..");
@@ -47,7 +51,7 @@ public class Menus {
 		System.exit(0);
 	}
 
-	public void displayMenu() {
+	public void displayMenu() throws Exception {
 		System.out.println("\nYou have chosen to Login.");
 		verifyCredentials();
 	}
@@ -56,8 +60,9 @@ public class Menus {
 	 * 
 	 * @param cru
 	 * @param user
+	 * @throws Exception
 	 */
-	private void verifyCredentials() {
+	private void verifyCredentials() throws Exception {
 		System.out.println("\nPlease enter your username: ");
 		username = cru.readString();
 		System.out.println("Please enter your password: ");
@@ -86,9 +91,9 @@ public class Menus {
 	 * Employee Main Menu
 	 * 
 	 * @param userInstance
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	private void employeeMainMenu(Employee emp) throws IOException {
+	private void employeeMainMenu(Employee emp) throws Exception {
 
 		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
@@ -101,9 +106,8 @@ public class Menus {
 
 		if (menuItem == 1) {
 			profileViewMaintainMenu(emp);
-
 		} else if (menuItem == 2) {
-			makeElections();
+			makeElections(emp);
 		} else if (menuItem == 3) {
 			checkEnrollmentStatus(emp);
 		} else if (menuItem == 4) {
@@ -113,11 +117,12 @@ public class Menus {
 		}
 	}
 
-	private void makeElections() {
-		System.out.println("");
+	private void makeElections(Employee emp) throws Exception {
+		System.out.println("In Make Election");
+		mec.makeElection(emp);
 	}
 
-	private void checkEnrollmentStatus(Employee emp) throws IOException {
+	private void checkEnrollmentStatus(Employee emp) throws Exception {
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp)) || "".equals(emp)) {
 			System.out.println("\nYou are not enrolled...please select Make Election below to enroll\n");
 			employeeMainMenu(emp);
@@ -129,9 +134,9 @@ public class Menus {
 	/**
 	 * admin main menu
 	 * 
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	private void adminMainMenu(Admin admin) throws IOException {
+	private void adminMainMenu(Admin admin) throws Exception {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
@@ -148,7 +153,7 @@ public class Menus {
 		}
 	}
 
-	private void createModifyUser(Admin admin) throws IOException {
+	private void createModifyUser(Admin admin) throws Exception {
 		System.out.println("\n Please select an option to continue:");
 		System.out.println("1. Create User");
 		System.out.println("2. Modify User");
@@ -207,9 +212,9 @@ public class Menus {
 	/**
 	 * manager main menu
 	 * 
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	private void managerMainMenu(Manager manager) throws IOException {
+	private void managerMainMenu(Manager manager) throws Exception {
 		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Generate BI Report.");
@@ -228,7 +233,7 @@ public class Menus {
 		}
 	}
 
-	private void generateBiReports(Manager manager) throws IOException {
+	private void generateBiReports(Manager manager) throws Exception {
 		BiReportingController brc = new BiReportingController();
 		System.out.println("\n Select which Report you would like to see:");
 		System.out.println("1. Employees with No Enrollment");
@@ -257,33 +262,33 @@ public class Menus {
 		}
 	}
 
-	private void printReportForVendorDistribution(List<User> users, Manager manager) throws IOException {
+	private void printReportForVendorDistribution(List<User> users, Manager manager) throws Exception {
 		System.out.println("\n###REPORT OF EMPOYEES AND Vendor###");
 		System.out.println("______________________________________________");
 		System.out.println("\nName\t\t\t\tEmployee ID\t\t\tVendor");
 		for (User user : users) {
 			Employee employee = (Employee) user;
-			System.out
-					.println(employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getVendorName());
+			System.out.println(
+					employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getVendorName());
 		}
 		System.out.println("\n\nGenerate Another report");
 		generateBiReports(manager);
 	}
 
-	private void printReportforInsuranceType(List<User> users, Manager manager) throws IOException {
+	private void printReportforInsuranceType(List<User> users, Manager manager) throws Exception {
 		System.out.println("\n###REPORT OF EMPOYEES AND INSURANCE TYPE###");
 		System.out.println("______________________________________________");
 		System.out.println("\nName\t\t\t\tEmployee ID\t\t\tInsurance Type");
 		for (User user : users) {
 			Employee employee = (Employee) user;
-			System.out
-					.println(employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getPolicyType());
+			System.out.println(
+					employee.getName() + "\t\t\t\t" + employee.getEmpId() + "\t\t\t" + employee.getPolicyType());
 		}
 		System.out.println("\n\nGenerate Another report");
 		generateBiReports(manager);
 	}
 
-	private void printReportForNoInsuranUsers(List<User> users, Manager manager) throws IOException {
+	private void printReportForNoInsuranUsers(List<User> users, Manager manager) throws Exception {
 		System.out.println("\n###REPORT OF EMPOYEES WITH NO INSURANCE###");
 		System.out.println("______________________________________________");
 		System.out.println("Total number of Employees with No Enrollment: " + users.size());
@@ -300,9 +305,9 @@ public class Menus {
 	 * vendor main menu
 	 * 
 	 * @param manager
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	private void vendorMainMenu(Manager manager) throws IOException {
+	private void vendorMainMenu(Manager manager) throws Exception {
 
 		System.out.println("Please select options from the menu below: ");
 		System.out.println("1. Add Vendor");
@@ -341,7 +346,7 @@ public class Menus {
 		csvUtility.write(FilePathConstants.VENDOR_CSV, vendor);
 	}
 
-	private void profileViewMaintainMenu(Object obj) throws IOException {
+	private void profileViewMaintainMenu(Object obj) throws Exception {
 		System.out.println("\n1. View Profile");
 		System.out.println("2. Maintain Profile");
 		System.out.println("3. Go back");

@@ -1,6 +1,7 @@
 package com.ebs.db;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -16,9 +17,11 @@ import org.apache.commons.csv.CSVRecord;
 
 import com.ebs.constants.FilePathConstants;
 import com.ebs.constants.UsersEnum;
+import com.ebs.constants.VendorEnum;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
+import com.ebs.domain.User;
 import com.ebs.domain.Vendor;
 
 public class CsvUtility {
@@ -88,5 +91,58 @@ public class CsvUtility {
 		}
 
 		return false;
+	}
+
+	public static void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
+		String filePath = null;
+		
+		if(obj instanceof Vendor)
+		{
+			
+			filePath = FilePathConstants.VENDOR_CSV;
+		}
+		else if (obj instanceof User) {
+			filePath = FilePathConstants.USERS_CSV;
+		}
+		
+		CSVParser parser = new CSVParser(new FileReader(filePath), CSVFormat.DEFAULT);
+		List<CSVRecord> list = parser.getRecords();
+		File f = new File(filePath);
+		String edited = f.getAbsolutePath();
+
+		f.delete();
+		Employee user = (Employee) obj;
+		CSVPrinter printer = new CSVPrinter(new FileWriter(edited),
+		CSVFormat.DEFAULT.withRecordSeparator("\n"));
+
+		for (CSVRecord record : list) {
+			String[] recordArray = toArray(record);
+			if(record.get(UsersEnum.name).equalsIgnoreCase(user.getName()))
+			{
+				recordArray[3] = recordSelected.get(VendorEnum.vname);
+				recordArray[5] = recordSelected.get(VendorEnum.vtype);
+			}
+			print(printer, recordArray);
+		}
+		parser.close();
+		printer.close();
+
+		System.out.println("CSV file was updated successfully !!!");
+	}
+
+	public static String[] toArray(CSVRecord rec) {
+		String[] arr = new String[rec.size()];
+		int i = 0;
+		for (String str : rec) {
+			arr[i++] = str;
+		}
+		return arr;
+	}
+
+	public static void print(CSVPrinter printer, String[] s) throws Exception {
+		for (String val : s) {
+			printer.print(val != null ? String.valueOf(val) : "");
+		}
+		printer.println();
 	}
 }
