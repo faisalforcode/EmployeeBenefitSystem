@@ -17,6 +17,7 @@ public class MakeElectionsController {
 		int recordNumber = 0;
 		ConsoleReaderUtility cru = new ConsoleReaderUtility();
 		CsvUtility csvUtility = new CsvUtility();
+		System.out.println("Utility");
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp.getVendorName())) || "".equals(emp.getPolicyType())) {
 			List<CSVRecord> records = csvUtility.read(FilePathConstants.VENDOR_CSV);
 
@@ -30,7 +31,7 @@ public class MakeElectionsController {
 
 			int selection = cru.readInt();
 
-			CSVRecord recordSelected = records.get(selection + 1);
+			CSVRecord recordSelected = records.get(selection -1);
 
 			System.out.println("You have selected.." + recordSelected.get(VendorEnum.vname) + " Vendor and "
 					+ recordSelected.get(VendorEnum.vtype)+" Type of insurance");
@@ -38,6 +39,10 @@ public class MakeElectionsController {
 			csvUtility.updateCsvFile(emp, recordSelected);
 
 			System.out.println("\nEnter number of Dependents: ");
+		}
+		else
+		{
+			System.out.println("\nYou are already enrolled\n");
 		}
 	}
 }

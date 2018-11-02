@@ -117,10 +117,10 @@ public class CsvUtility {
 
 		for (CSVRecord record : list) {
 			String[] recordArray = toArray(record);
-			if(record.get(UsersEnum.name).equalsIgnoreCase(user.getName()))
+			if(record.get(0).equalsIgnoreCase(user.getName()))
 			{
-				recordArray[3] = recordSelected.get(VendorEnum.vname);
-				recordArray[5] = recordSelected.get(VendorEnum.vtype);
+				recordArray[2] = recordSelected.get(VendorEnum.vname);
+				recordArray[4] = recordSelected.get(VendorEnum.vtype);
 			}
 			print(printer, recordArray);
 		}

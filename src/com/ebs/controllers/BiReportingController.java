@@ -41,10 +41,13 @@ public class BiReportingController {
 		List<User> userWithInsuranceType = new ArrayList<User>();
 
 		for (CSVRecord csvRecord : userRecordsEmployee) {
+			System.out.println("");
 			if (!"".contentEquals(csvRecord.get(UsersEnum.policytype))
 					&& !"".contentEquals(csvRecord.get(UsersEnum.vendorName))) {
-				User user = new Employee(csvRecord.get(UsersEnum.name), Integer.parseInt(csvRecord.get(UsersEnum.empId)),
-						"", "", "", "", 0, csvRecord.get(UsersEnum.policytype), Integer.parseInt(csvRecord.get(UsersEnum.ssn)), csvRecord.get(UsersEnum.vendorName));
+				User user = new Employee(csvRecord.get(UsersEnum.name),
+						Integer.parseInt(csvRecord.get(UsersEnum.empId)), "", "", "", "", 0,
+						csvRecord.get(UsersEnum.policytype), Integer.parseInt(csvRecord.get(UsersEnum.ssn)),
+						csvRecord.get(UsersEnum.vendorName));
 				userWithInsuranceType.add(user);
 			}
 		}
@@ -54,6 +57,6 @@ public class BiReportingController {
 
 	public void generateReportforEmployeeWithVendor() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

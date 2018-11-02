@@ -76,4 +76,10 @@ public class User {
 		this.ssn = ssn;
 	}
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", empId=" + empId + ", phone=" + phone + ", username=" + username + ", password="
+				+ password + ", type=" + type + ", ssn=" + ssn + "]";
+	}
+
 }
