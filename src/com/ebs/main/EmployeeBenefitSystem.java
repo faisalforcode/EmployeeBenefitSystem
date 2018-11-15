@@ -1,24 +1,27 @@
 package com.ebs.main;
 
-import java.io.IOException;
-
 import com.ebs.controllers.Menus;
 
 public class EmployeeBenefitSystem {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("╔═╗┌┬┐┌─┐┬  ┌─┐┬ ┬┌─┐┌─┐  ╔╗ ┌─┐┌┐┌┌─┐┌─┐┬┌┬┐  ╔═╗┬ ┬┌─┐┌┬┐┌─┐┌┬┐\r\n"
-				+ "║╣ │││├─┘│  │ │└┬┘├┤ ├┤   ╠╩╗├┤ │││├┤ ├┤ │ │   ╚═╗└┬┘└─┐ │ ├┤ │││\r\n"
-				+ "╚═╝┴ ┴┴  ┴─┘└─┘ ┴ └─┘└─┘  ╚═╝└─┘┘└┘└─┘└  ┴ ┴   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴\r\n" + "");
+		System.out.println("*************************************************");
+		System.out.println("Employee Benefit System");
+		System.out.println("*************************************************");
 		startMenu();
 	}
 
 	/**
 	 * cd d
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	private static void startMenu() throws Exception {
+		/*
+		 * CopyUtility cp = new CopyUtility(); cp.copy();
+		 */
 		Menus menu = new Menus();
 		menu.displayMainMenu();
 	}
+
 }

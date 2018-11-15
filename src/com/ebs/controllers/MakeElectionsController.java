@@ -1,6 +1,5 @@
 package com.ebs.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.csv.CSVRecord;
@@ -17,7 +16,6 @@ public class MakeElectionsController {
 		int recordNumber = 0;
 		ConsoleReaderUtility cru = new ConsoleReaderUtility();
 		CsvUtility csvUtility = new CsvUtility();
-		System.out.println("Utility");
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp.getVendorName())) || "".equals(emp.getPolicyType())) {
 			List<CSVRecord> records = csvUtility.read(FilePathConstants.VENDOR_CSV);
 

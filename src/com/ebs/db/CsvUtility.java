@@ -25,8 +25,6 @@ import com.ebs.domain.User;
 import com.ebs.domain.Vendor;
 
 public class CsvUtility {
-	// String[] HEADERS = { "name", "empId", "vendorName", "ssn", "policyId",
-	// "phone", "noOfDependents", "username","password" };
 
 	public List<CSVRecord> read(String filePath) throws IOException {
 
@@ -95,16 +93,14 @@ public class CsvUtility {
 
 	public static void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
 		String filePath = null;
-		
-		if(obj instanceof Vendor)
-		{
-			
+
+		if (obj instanceof Vendor) {
+
 			filePath = FilePathConstants.VENDOR_CSV;
-		}
-		else if (obj instanceof User) {
+		} else if (obj instanceof User) {
 			filePath = FilePathConstants.USERS_CSV;
 		}
-		
+
 		CSVParser parser = new CSVParser(new FileReader(filePath), CSVFormat.DEFAULT);
 		List<CSVRecord> list = parser.getRecords();
 		File f = new File(filePath);
@@ -112,13 +108,11 @@ public class CsvUtility {
 
 		f.delete();
 		Employee user = (Employee) obj;
-		CSVPrinter printer = new CSVPrinter(new FileWriter(edited),
-		CSVFormat.DEFAULT.withRecordSeparator("\n"));
+		CSVPrinter printer = new CSVPrinter(new FileWriter(edited), CSVFormat.DEFAULT.withRecordSeparator("\n"));
 
 		for (CSVRecord record : list) {
 			String[] recordArray = toArray(record);
-			if(record.get(0).equalsIgnoreCase(user.getName()))
-			{
+			if (record.get(0).equalsIgnoreCase(user.getName())) {
 				recordArray[2] = recordSelected.get(VendorEnum.vname);
 				recordArray[4] = recordSelected.get(VendorEnum.vtype);
 			}
