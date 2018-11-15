@@ -41,7 +41,6 @@ public class BiReportingController {
 		List<User> userWithInsuranceType = new ArrayList<User>();
 
 		for (CSVRecord csvRecord : userRecordsEmployee) {
-			System.out.println("");
 			if (!"".contentEquals(csvRecord.get(UsersEnum.policytype))
 					&& !"".contentEquals(csvRecord.get(UsersEnum.vendorName))) {
 				User user = new Employee(csvRecord.get(UsersEnum.name),

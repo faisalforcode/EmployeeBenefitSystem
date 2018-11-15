@@ -68,7 +68,7 @@ public class CsvUtility {
 			fileWriter.close();
 			csvFilePrinter.close();
 		} else if (obj instanceof Manager) {
-			Manager employee = (Manager) obj;
+			//Manager employee = (Manager) obj;
 		} else if (obj instanceof Admin) {
 
 		} else if (obj instanceof Vendor) {
@@ -91,7 +91,7 @@ public class CsvUtility {
 		return false;
 	}
 
-	public static void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
+	public void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
 		String filePath = null;
 
 		if (obj instanceof Vendor) {

@@ -223,7 +223,7 @@ public class Menus {
 	 * 
 	 * @throws Exception
 	 */
-	private void managerMainMenu(Manager manager) throws Exception {
+	public void managerMainMenu(Manager manager) throws Exception {
 		System.out.println("\nPlease select options from the menu below: ");
 		System.out.println("1. View/Maintain Profile.");
 		System.out.println("2. Generate BI Report.");
@@ -241,7 +241,7 @@ public class Menus {
 			vendorMainMenu(manager);
 		} else if (menuItem == 4) {
 			NotifyVendorController nvc = new NotifyVendorController();
-			nvc.notifyVendor();
+			nvc.notifyVendor(manager);
 		} else if (menuItem == 5) {
 			displayMainMenu();
 		} else if (menuItem == 6) {
