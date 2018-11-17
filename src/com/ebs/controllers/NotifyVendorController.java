@@ -1,8 +1,9 @@
 package com.ebs.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -68,24 +69,37 @@ public class NotifyVendorController {
 		System.out.println("\nNotifying user elections to External Vendor Systems...");
 		CsvUtility csvUtility = new CsvUtility();
 		List<CSVRecord> csvRecords = csvUtility.read(FilePathConstants.NOTIFY_VENDOR_CSV);
+		Set<Employee> employeesApproved = new HashSet<Employee>();
 		List<Employee> employeesNotApproved = new ArrayList<Employee>();
-		List<Employee> employeesApproved = new ArrayList<Employee>();
-		
-		for (Employee employeeToNotify : employees) {
-			for (CSVRecord csvRecord : csvRecords) {
+		CsvUtility csvutility = new CsvUtility();
+		employeesApproved.addAll(employees);
+		for (CSVRecord csvRecord : csvRecords) {
+			for (Employee employeeToNotify : employees) {
 				if (employeeToNotify.getName().equalsIgnoreCase(csvRecord.get(NotifyVendor.name))
 						&& employeeToNotify.getVendorName().equalsIgnoreCase(csvRecord.get(NotifyVendor.vendor))
 						&& employeeToNotify.getPolicyType().equalsIgnoreCase(csvRecord.get(NotifyVendor.policyType))) {
+					employeesApproved.remove(employeeToNotify);
 					employeesNotApproved.add(employeeToNotify);
-					System.out.println(""+employeeToNotify.getName());
-				} else {
-					employeesApproved.add(employeeToNotify);
-					
-					
 				}
 			}
 		}
+		boolean notifyVendorSuccessful = csvutility.writeNotifyVendor(employeesApproved);
+		if (notifyVendorSuccessful) {
+			if (!employeesApproved.isEmpty()) {
+				System.out.println("\nThe following users were approved by the vendor");
+				System.out.println("_________________________________________________");
+				for (Employee employee : employeesApproved) {
+					System.out.println(employee.getName());
+				} 
+			}
+			if (!employeesNotApproved.isEmpty()) {
+				System.out.println("\nThe following users were not approved. They are already approved.");
+				System.out.println("_________________________________________________________________");
 
+				for (Employee employee : employeesNotApproved) {
+					System.out.println(employee.getName());
+				}
+			}
+		}
 	}
-
 }

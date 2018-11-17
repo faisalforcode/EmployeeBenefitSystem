@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -68,7 +69,7 @@ public class CsvUtility {
 			fileWriter.close();
 			csvFilePrinter.close();
 		} else if (obj instanceof Manager) {
-			//Manager employee = (Manager) obj;
+			// Manager employee = (Manager) obj;
 		} else if (obj instanceof Admin) {
 
 		} else if (obj instanceof Vendor) {
@@ -90,29 +91,28 @@ public class CsvUtility {
 
 		return false;
 	}
-	
-	public boolean writeNotifyVendor(List<Employee> employees)
-	{
+
+	public boolean writeNotifyVendor(Set<Employee> employees) throws IOException {
+		boolean success = false;
 		final String NEW_LINE_SEPARATOR = "\n";
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
 
 		FileWriter fileWriterVendor = new FileWriter(FilePathConstants.NOTIFY_VENDOR_CSV, true);
 		CSVPrinter csvFilePrinterVendor = new CSVPrinter(fileWriterVendor, csvFileFormat);
-		
-		List<String> notifyVendorRecords = new ArrayList<String>();
+
 		for (Employee employee : employees) {
-			notifyVendorRecords.add(employee.getName());
-			notifyVendorRecords.add(employee.getType());
-			notifyVendorRecords.add(employee.getContact());
-			csvFilePrinterVendor.printRecord(notifyVendorRecords);
-			
+			List<String> employeeToPrint = new ArrayList<String>();
+			employeeToPrint.add(employee.getName());
+			employeeToPrint.add(employee.getPolicyType());
+			employeeToPrint.add(employee.getVendorName());
+			csvFilePrinterVendor.printRecord(employeeToPrint);
 		}
-		System.out.println("\nVendor Updated");
 		fileWriterVendor.flush();
 		fileWriterVendor.close();
 		csvFilePrinterVendor.close();
-		return false;
-		
+		success = true;
+		return success;
+
 	}
 
 	public void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {

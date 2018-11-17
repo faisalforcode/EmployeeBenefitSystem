@@ -79,7 +79,10 @@ public class Employee extends User {
 
 	@Override
 	public String toString() {
-		return "Employee [vendorName=" + vendorName + ",  policyType=" + policyType
-				+ ", noOfDependents=" + noOfDependents + "]";
+		return "Employee [vendorName=" + vendorName + ", policyType=" + policyType + ", name)=" + getName() + "]";
 	}
+
+
+
+
 }

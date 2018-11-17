@@ -242,6 +242,7 @@ public class Menus {
 		} else if (menuItem == 4) {
 			NotifyVendorController nvc = new NotifyVendorController();
 			nvc.notifyVendor(manager);
+			managerMainMenu(manager);
 		} else if (menuItem == 5) {
 			displayMainMenu();
 		} else if (menuItem == 6) {
