@@ -69,7 +69,8 @@ public class NotifyVendorController {
 		CsvUtility csvUtility = new CsvUtility();
 		List<CSVRecord> csvRecords = csvUtility.read(FilePathConstants.NOTIFY_VENDOR_CSV);
 		List<Employee> employeesNotApproved = new ArrayList<Employee>();
-
+		List<Employee> employeesApproved = new ArrayList<Employee>();
+		
 		for (Employee employeeToNotify : employees) {
 			for (CSVRecord csvRecord : csvRecords) {
 				if (employeeToNotify.getName().equalsIgnoreCase(csvRecord.get(NotifyVendor.name))
@@ -78,7 +79,9 @@ public class NotifyVendorController {
 					employeesNotApproved.add(employeeToNotify);
 					System.out.println(""+employeeToNotify.getName());
 				} else {
-					System.out.println("Notifying");
+					employeesApproved.add(employeeToNotify);
+					
+					
 				}
 			}
 		}

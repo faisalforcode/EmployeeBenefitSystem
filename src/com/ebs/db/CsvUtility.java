@@ -90,6 +90,30 @@ public class CsvUtility {
 
 		return false;
 	}
+	
+	public boolean writeNotifyVendor(List<Employee> employees)
+	{
+		final String NEW_LINE_SEPARATOR = "\n";
+		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
+
+		FileWriter fileWriterVendor = new FileWriter(FilePathConstants.NOTIFY_VENDOR_CSV, true);
+		CSVPrinter csvFilePrinterVendor = new CSVPrinter(fileWriterVendor, csvFileFormat);
+		
+		List<String> notifyVendorRecords = new ArrayList<String>();
+		for (Employee employee : employees) {
+			notifyVendorRecords.add(employee.getName());
+			notifyVendorRecords.add(employee.getType());
+			notifyVendorRecords.add(employee.getContact());
+			csvFilePrinterVendor.printRecord(notifyVendorRecords);
+			
+		}
+		System.out.println("\nVendor Updated");
+		fileWriterVendor.flush();
+		fileWriterVendor.close();
+		csvFilePrinterVendor.close();
+		return false;
+		
+	}
 
 	public void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
 		String filePath = null;
