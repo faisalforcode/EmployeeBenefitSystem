@@ -15,13 +15,14 @@ import com.ebs.domain.User;
 import com.ebs.domaininterfaces.LoginInterface;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
+import com.ebs.controllers.UserFactory;
 /**
  * @author faisal
  *
  */
 public class LoginController implements LoginInterface {
 	
-	LoginFactory loginFactory = new LoginFactory();
+	UserFactory userFactory = new UserFactory();
 
 	/* (non-Javadoc)
 	 * @see com.ebs.controllers.LoginInterface#login(java.lang.String, java.lang.String)
@@ -39,14 +40,14 @@ public class LoginController implements LoginInterface {
 			if (username.contentEquals(csvRecord.get(UsersEnum.username))
 					&& pwd.contentEquals(csvRecord.get(UsersEnum.password))) {
 				//user = getUserInstance(csvRecord);
-				user = loginFactory.getUser(csvRecord);
+				user = userFactory.getUser(csvRecord);
 				break;
 			}
 		}
 		return user;
 	}
 
-	public User getUserInstance(CSVRecord record) {
+/*	public User getUserInstance(CSVRecord record) {
 		String type = record.get(UsersEnum.type);
 		User user = null;
 		if (type.equals("E")) {
@@ -65,5 +66,5 @@ public class LoginController implements LoginInterface {
 					record.get(UsersEnum.type), Integer.parseInt(record.get(UsersEnum.ssn)));
 		}
 		return user;
-	}
+	}*/
 }

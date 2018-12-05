@@ -15,7 +15,7 @@ import com.ebs.domain.User;
  * @author faisal
  *
  */
-public class LoginFactory {
+public class UserFactory {
 	public User getUser(CSVRecord record) {
 		String type = record.get(UsersEnum.type);
 		User user = null;
