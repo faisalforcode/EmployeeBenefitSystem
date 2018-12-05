@@ -11,13 +11,24 @@ import com.ebs.constants.UsersEnum;
 import com.ebs.db.CsvUtility;
 import com.ebs.domain.Employee;
 import com.ebs.domain.User;
+import com.ebs.domaininterfaces.BiReportingInterface;
+import com.ebs.domaininterfaces.ConsoleReaderInterface;
+import com.ebs.domaininterfaces.MenusInterface;
+import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
-public class BiReportingController {
+public class BiReportingController implements BiReportingInterface {
 
+	ConsoleReaderInterface cru = new ConsoleReaderUtility();
+	MenusInterface menuController = new Menus();
+
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.BiReportingInterface#generateReportforEmployeeWithNoEnrollment()
+	 */
+	@Override
 	public List<User> generateReportforEmployeeWithNoEnrollment() throws IOException {
 		List<CSVRecord> userRecordsEmployee;
 
-		CsvUtility csvUtility = new CsvUtility();
+		CsvUtilitiesInterface csvUtility = new CsvUtility();
 		userRecordsEmployee = csvUtility.read(FilePathConstants.USERS_CSV);
 		List<User> userWithNoInsurance = new ArrayList<User>();
 
@@ -33,10 +44,14 @@ public class BiReportingController {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.BiReportingInterface#generateReportForEmployeeInsuranceType()
+	 */
+	@Override
 	public List<User> generateReportForEmployeeInsuranceType() throws IOException {
 		List<CSVRecord> userRecordsEmployee;
 
-		CsvUtility csvUtility = new CsvUtility();
+		CsvUtilitiesInterface csvUtility = new CsvUtility();
 		userRecordsEmployee = csvUtility.read(FilePathConstants.USERS_CSV);
 		List<User> userWithInsuranceType = new ArrayList<User>();
 
@@ -54,6 +69,10 @@ public class BiReportingController {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.BiReportingInterface#generateReportforEmployeeWithVendor()
+	 */
+	@Override
 	public void generateReportforEmployeeWithVendor() {
 		// TODO Auto-generated method stub
 

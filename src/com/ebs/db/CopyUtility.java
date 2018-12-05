@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import com.ebs.constants.FilePathConstants;
 
+@Deprecated
 public class CopyUtility {
 
 	public boolean copy() throws Exception {
@@ -31,6 +32,5 @@ public class CopyUtility {
 			isUsers.close();
 		}
 		return succeess;
-
 	}
 }

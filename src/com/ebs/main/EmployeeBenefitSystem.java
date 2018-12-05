@@ -1,6 +1,7 @@
 package com.ebs.main;
 
 import com.ebs.controllers.Menus;
+import com.ebs.domaininterfaces.MenusInterface;
 
 public class EmployeeBenefitSystem {
 
@@ -20,7 +21,7 @@ public class EmployeeBenefitSystem {
 		/*
 		 * CopyUtility cp = new CopyUtility(); cp.copy();
 		 */
-		Menus menu = new Menus();
+		MenusInterface menu = new Menus();
 		menu.displayMainMenu();
 	}
 

@@ -6,15 +6,21 @@ import org.apache.commons.csv.CSVRecord;
 
 import com.ebs.constants.FilePathConstants;
 import com.ebs.constants.VendorEnum;
-import com.ebs.db.ConsoleReaderUtility;
 import com.ebs.db.CsvUtility;
 import com.ebs.domain.Employee;
+import com.ebs.domaininterfaces.ConsoleReaderInterface;
+import com.ebs.domaininterfaces.MakeElectionInterface;
+import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
-public class MakeElectionsController {
+public class MakeElectionsController implements MakeElectionInterface {
 
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.MakeElectionInterface#makeElection(com.ebs.domain.Employee)
+	 */
+	@Override
 	public void makeElection(Employee emp) throws Exception {
-		ConsoleReaderUtility cru = new ConsoleReaderUtility();
-		CsvUtility csvUtility = new CsvUtility();
+		ConsoleReaderInterface cru = new ConsoleReaderUtility();
+		CsvUtilitiesInterface csvUtility = new CsvUtility();
 		if ((null == emp.getVendorName() || null == emp.getPolicyType()) && ("".equals(emp.getVendorName()))
 				|| "".equals(emp.getPolicyType())) {
 			List<CSVRecord> records = csvUtility.read(FilePathConstants.VENDOR_CSV);

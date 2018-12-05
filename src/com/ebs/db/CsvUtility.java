@@ -24,9 +24,14 @@ import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 import com.ebs.domain.User;
 import com.ebs.domain.Vendor;
+import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
-public class CsvUtility {
+public class CsvUtility implements CsvUtilitiesInterface {
 
+	/* (non-Javadoc)
+	 * @see com.ebs.db.CsvUtilitiesInterface#read(java.lang.String)
+	 */
+	@Override
 	public List<CSVRecord> read(String filePath) throws IOException {
 
 		Reader reader = Files.newBufferedReader(Paths.get(filePath));
@@ -42,6 +47,10 @@ public class CsvUtility {
 		return csvRecords;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.db.CsvUtilitiesInterface#write(java.lang.String, java.lang.Object)
+	 */
+	@Override
 	public boolean write(String filePath, Object obj) throws IOException {
 		final String NEW_LINE_SEPARATOR = "\n";
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
@@ -92,6 +101,10 @@ public class CsvUtility {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.db.CsvUtilitiesInterface#writeNotifyVendor(java.util.Set)
+	 */
+	@Override
 	public boolean writeNotifyVendor(Set<Employee> employees) throws IOException {
 		boolean success = false;
 		final String NEW_LINE_SEPARATOR = "\n";
@@ -115,6 +128,10 @@ public class CsvUtility {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.db.CsvUtilitiesInterface#updateCsvFile(java.lang.Object, org.apache.commons.csv.CSVRecord)
+	 */
+	@Override
 	public void updateCsvFile(Object obj, CSVRecord recordSelected) throws Exception {
 		String filePath = null;
 

@@ -3,9 +3,14 @@ package com.ebs.controllers;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
+import com.ebs.domaininterfaces.ProfileInterface;
 
-public class ProfileController {
+public class ProfileController implements ProfileInterface {
 
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.ProfileInterface#viewProfile(java.lang.Object)
+	 */
+	@Override
 	public void viewProfile(Object userInstance) {
 		if (userInstance instanceof Employee) {
 			Employee employee = (Employee) userInstance;

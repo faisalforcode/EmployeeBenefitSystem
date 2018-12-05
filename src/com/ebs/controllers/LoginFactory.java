@@ -1,52 +1,22 @@
+/**
+ * 
+ */
 package com.ebs.controllers;
-
-import java.io.IOException;
-import java.util.List;
 
 import org.apache.commons.csv.CSVRecord;
 
-import com.ebs.constants.FilePathConstants;
 import com.ebs.constants.UsersEnum;
-import com.ebs.db.CsvUtility;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 import com.ebs.domain.User;
-import com.ebs.domaininterfaces.LoginInterface;
-import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
 /**
  * @author faisal
  *
  */
-public class LoginController implements LoginInterface {
-	
-	LoginFactory loginFactory = new LoginFactory();
-
-	/* (non-Javadoc)
-	 * @see com.ebs.controllers.LoginInterface#login(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public User login(String username, String pwd) throws IOException {
-
-		User user = null;
-		List<CSVRecord> userRecordsEmployee;
-
-		CsvUtilitiesInterface csvUtility = new CsvUtility();
-		userRecordsEmployee = csvUtility.read(FilePathConstants.USERS_CSV);
-
-		for (CSVRecord csvRecord : userRecordsEmployee) {
-			if (username.contentEquals(csvRecord.get(UsersEnum.username))
-					&& pwd.contentEquals(csvRecord.get(UsersEnum.password))) {
-				//user = getUserInstance(csvRecord);
-				user = loginFactory.getUser(csvRecord);
-				break;
-			}
-		}
-		return user;
-	}
-
-	public User getUserInstance(CSVRecord record) {
+public class LoginFactory {
+	public User getUser(CSVRecord record) {
 		String type = record.get(UsersEnum.type);
 		User user = null;
 		if (type.equals("E")) {
