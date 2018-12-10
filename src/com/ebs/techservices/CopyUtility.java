@@ -1,4 +1,4 @@
-package com.ebs.db;
+package com.ebs.techservices;
 
 import java.io.IOException;
 import java.io.InputStream;

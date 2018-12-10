@@ -10,7 +10,6 @@ import org.apache.commons.csv.CSVRecord;
 import com.ebs.constants.FilePathConstants;
 import com.ebs.constants.NotifyVendor;
 import com.ebs.constants.VendorEnum;
-import com.ebs.db.CsvUtility;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 import com.ebs.domain.User;
@@ -18,6 +17,7 @@ import com.ebs.domaininterfaces.BiReportingInterface;
 import com.ebs.domaininterfaces.ConsoleReaderInterface;
 import com.ebs.domaininterfaces.MenusInterface;
 import com.ebs.domaininterfaces.NotifyVendorInterface;
+import com.ebs.techservices.CsvUtility;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
 public class NotifyVendorController implements NotifyVendorInterface {

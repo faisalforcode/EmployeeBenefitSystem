@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.ebs.constants.FilePathConstants;
-import com.ebs.db.CsvUtility;
 import com.ebs.domain.Admin;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
@@ -16,7 +15,9 @@ import com.ebs.domaininterfaces.LoginInterface;
 import com.ebs.domaininterfaces.MakeElectionInterface;
 import com.ebs.domaininterfaces.MenusInterface;
 import com.ebs.domaininterfaces.NotifyVendorInterface;
+import com.ebs.domaininterfaces.PrintReportInterface;
 import com.ebs.domaininterfaces.ProfileInterface;
+import com.ebs.techservices.CsvUtility;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
 public class Menus implements MenusInterface{
@@ -284,6 +285,8 @@ public class Menus implements MenusInterface{
 
 	public void generateBiReports(Manager manager) throws Exception {
 		BiReportingInterface brc = new BiReportingController();
+		PrintReportFactory printFactory = new PrintReportFactory();
+		PrintReportInterface printReportInterface = null;
 		System.out.println("\n Select which Report you would like to see:");
 		System.out.println("1. Employees with No Enrollment");
 		System.out.println("2. Employees with particular Vendor.");
@@ -294,13 +297,25 @@ public class Menus implements MenusInterface{
 
 		if (1 == selection) {
 			List<User> users = brc.generateReportforEmployeeWithNoEnrollment();
-			printReportForNoInsuranUsers(users, manager);
+			printReportInterface = printFactory.printReportImpl("NoInsuranceUsers");
+			printReportInterface.printReport(users, manager);
+			System.out.println("\n\nGenerate Another report");
+			generateBiReports(manager);
+			//printReportForNoInsuranceUsers(users, manager);
 		} else if (2 == selection) {
 			List<User> users = brc.generateReportForEmployeeInsuranceType();
-			printReportForVendorDistribution(users, manager);
+			printReportInterface = printFactory.printReportImpl("InsuranceType");
+			printReportInterface.printReport(users, manager);
+			System.out.println("\n\nGenerate Another report");
+			generateBiReports(manager);
+			//printReportForVendorDistribution(users, manager);
 		} else if (3 == selection) {
 			List<User> users = brc.generateReportForEmployeeInsuranceType();
-			printReportforInsuranceType(users, manager);
+			printReportInterface = printFactory.printReportImpl("VendorDistribution");
+			printReportInterface.printReport(users, manager);
+			System.out.println("\n\nGenerate Another report");
+			generateBiReports(manager);
+			//	printReportforInsuranceType(users, manager);
 		} else if (4 == selection) {
 			managerMainMenu(manager);
 		} else if (5 == selection) {
@@ -414,6 +429,10 @@ public class Menus implements MenusInterface{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ebs.controllers.PrintReportInterface#printReportForVendorDistribution(java.util.List, com.ebs.domain.Manager)
+	 */
+	
 	public void printReportForVendorDistribution(List<User> users, Manager manager) throws Exception {
 		System.out.println("\n###REPORT OF EMPOYEES AND Vendor###");
 		System.out.println("______________________________________________");
@@ -454,7 +473,7 @@ public class Menus implements MenusInterface{
 	 * com.ebs.controllers.PrintReportInterface#printReportForNoInsuranUsers(java.
 	 * util.List, com.ebs.domain.Manager)
 	 */
-	public void printReportForNoInsuranUsers(List<User> users, Manager manager) throws Exception {
+	public void printReportForNoInsuranceUsers(List<User> users, Manager manager) throws Exception {
 		System.out.println("\n###REPORT OF EMPOYEES WITH NO INSURANCE###");
 		System.out.println("______________________________________________");
 		System.out.println("Total number of Employees with No Enrollment: " + users.size());

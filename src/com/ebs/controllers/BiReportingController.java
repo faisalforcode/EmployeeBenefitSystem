@@ -8,12 +8,12 @@ import org.apache.commons.csv.CSVRecord;
 
 import com.ebs.constants.FilePathConstants;
 import com.ebs.constants.UsersEnum;
-import com.ebs.db.CsvUtility;
 import com.ebs.domain.Employee;
 import com.ebs.domain.User;
 import com.ebs.domaininterfaces.BiReportingInterface;
 import com.ebs.domaininterfaces.ConsoleReaderInterface;
 import com.ebs.domaininterfaces.MenusInterface;
+import com.ebs.techservices.CsvUtility;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
 public class BiReportingController implements BiReportingInterface {
