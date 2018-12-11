@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="EBS_lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/EBS_lib/commons-csv-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/EBS_lib/text-io-3.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
