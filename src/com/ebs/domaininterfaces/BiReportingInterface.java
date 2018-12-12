@@ -12,7 +12,5 @@ public interface BiReportingInterface {
 	List<User> getEmployeeInsuranceType() throws IOException;
 
 	List<User> getEmployeeWithVendor();
-
-	
 	
 }

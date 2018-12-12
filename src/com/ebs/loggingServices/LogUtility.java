@@ -12,14 +12,14 @@ public class LogUtility{
 	}*/
 
 	public static Logger getlogger(String loggername) throws IOException {
-		Logger logger = Logger.getLogger(loggername);
-		FileHandler handler = new FileHandler("logger.log", 2000, 5);
+		final Logger LOGGER = Logger.getLogger(loggername);
+		FileHandler handler = new FileHandler("EBSlogger.log", 2000, 5);
 		handler.setFormatter(new MyFormatter());
 
-		if (logger.getLevel() != Level.CONFIG) {
-			logger.addHandler(handler);
+		if (LOGGER.getLevel() != Level.CONFIG) {
+			LOGGER.addHandler(handler);
 		}
-		return logger;
+		return LOGGER;
 	}
 
 }
