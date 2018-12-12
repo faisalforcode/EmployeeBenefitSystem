@@ -1,6 +1,7 @@
 package com.ebs.domaininterfaces;
 
 import com.ebs.domain.Admin;
+import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 
 public interface MenusInterface {
@@ -40,6 +41,13 @@ public interface MenusInterface {
 	 * @param manager
 	 * @throws Exception
 	 */
-	void generateBiReports(Manager manager) throws Exception; 
+	void generateBiReports(Manager manager) throws Exception;
+
+	/**
+	 * 
+	 * @param emp
+	 * @throws Exception
+	 */
+	void employeeMainMenu(Employee emp) throws Exception; 
 	
 }
