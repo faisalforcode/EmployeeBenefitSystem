@@ -8,6 +8,7 @@ import com.ebs.domain.User;
 public interface PrintReportInterface {
 
 	/**
+	 * Print report of Users having multiple Implementations
 	 * 
 	 * @param users
 	 * @param manager

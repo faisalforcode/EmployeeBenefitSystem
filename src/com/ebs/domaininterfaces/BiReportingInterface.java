@@ -7,10 +7,12 @@ import com.ebs.domain.User;
 
 public interface BiReportingInterface {
 
-	List<User> generateReportforEmployeeWithNoEnrollment() throws IOException;
+	List<User> getEmployeeWithNoEnrollment() throws IOException;
 
-	List<User> generateReportForEmployeeInsuranceType() throws IOException;
+	List<User> getEmployeeInsuranceType() throws IOException;
 
-	void generateReportforEmployeeWithVendor();
+	List<User> getEmployeeWithVendor();
 
+	
+	
 }

@@ -10,7 +10,7 @@ public class PrintReportFactory {
 	 * @param reportType
 	 * @return
 	 */
-	PrintReportInterface printReportImpl(String reportType) {
+	public PrintReportInterface printReportImpl(String reportType) {
 		PrintReportInterface printReportImpl = null;
 		if ("InsuranceType".equalsIgnoreCase(reportType)) {
 			printReportImpl = new PrintReportForInsuranceType();

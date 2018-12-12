@@ -9,5 +9,10 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="text-io-3.3.0.jar"/>
 	<classpathentry kind="lib" path="commons-csv-1.6.jar"/>
+	<classpathentry kind="lib" path="log4j-jcl-2.11.1.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="slf4j-log4j12-1.7.25.jar"/>
+	<classpathentry kind="lib" path="log4j-api-2.11.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

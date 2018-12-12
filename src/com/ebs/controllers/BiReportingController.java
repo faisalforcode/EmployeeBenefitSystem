@@ -25,7 +25,7 @@ public class BiReportingController implements BiReportingInterface {
 	 * @see com.ebs.controllers.BiReportingInterface#generateReportforEmployeeWithNoEnrollment()
 	 */
 	@Override
-	public List<User> generateReportforEmployeeWithNoEnrollment() throws IOException {
+	public List<User> getEmployeeWithNoEnrollment() throws IOException {
 		List<CSVRecord> userRecordsEmployee;
 
 		CsvUtilitiesInterface csvUtility = new CsvUtility();
@@ -48,7 +48,7 @@ public class BiReportingController implements BiReportingInterface {
 	 * @see com.ebs.controllers.BiReportingInterface#generateReportForEmployeeInsuranceType()
 	 */
 	@Override
-	public List<User> generateReportForEmployeeInsuranceType() throws IOException {
+	public List<User> getEmployeeInsuranceType() throws IOException {
 		List<CSVRecord> userRecordsEmployee;
 
 		CsvUtilitiesInterface csvUtility = new CsvUtility();
@@ -73,8 +73,11 @@ public class BiReportingController implements BiReportingInterface {
 	 * @see com.ebs.controllers.BiReportingInterface#generateReportforEmployeeWithVendor()
 	 */
 	@Override
-	public void generateReportforEmployeeWithVendor() {
+	public List<User> getEmployeeWithVendor() {
 		// TODO Auto-generated method stub
+		return null;
 
 	}
+	
+	
 }

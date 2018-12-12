@@ -30,7 +30,7 @@ public class MakeElectionsController implements MakeElectionInterface {
 				System.out.println(csvRecord.getRecordNumber() + ". " + csvRecord.get(VendorEnum.vname) + "\t"
 						+ csvRecord.get(VendorEnum.vtype));
 			}
-			System.out.println("\n Enter your Choice: ");
+			System.out.println("\nEnter your Choice: ");
 
 			int selection = cru.readInt();
 

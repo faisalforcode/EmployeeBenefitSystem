@@ -1,5 +1,6 @@
 package com.ebs.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,14 +14,17 @@ import com.ebs.constants.VendorEnum;
 import com.ebs.domain.Employee;
 import com.ebs.domain.Manager;
 import com.ebs.domain.User;
+import com.ebs.domain.Vendor;
 import com.ebs.domaininterfaces.BiReportingInterface;
 import com.ebs.domaininterfaces.ConsoleReaderInterface;
 import com.ebs.domaininterfaces.MenusInterface;
-import com.ebs.domaininterfaces.NotifyVendorInterface;
+import com.ebs.domaininterfaces.ManageVendorInterface;
 import com.ebs.techservices.CsvUtility;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
 
-public class NotifyVendorController implements NotifyVendorInterface {
+public class ManageVendorController implements ManageVendorInterface {
+
+	ConsoleReaderInterface cru = new ConsoleReaderUtility();
 
 	/* (non-Javadoc)
 	 * @see com.ebs.controllers.NotifyVendorInterface#notifyVendor(com.ebs.domain.Manager)
@@ -32,7 +36,7 @@ public class NotifyVendorController implements NotifyVendorInterface {
 		List<CSVRecord> records = csvUtility.read(FilePathConstants.VENDOR_CSV);
 		ConsoleReaderInterface csvReaderUtility = new ConsoleReaderUtility();
 		BiReportingInterface brc = new BiReportingController();
-		List<User> users = brc.generateReportForEmployeeInsuranceType();
+		List<User> users = brc.getEmployeeInsuranceType();
 		List<Employee> employeesToBeNotified = new ArrayList<Employee>();
 		MenusInterface menus = new Menus();
 
@@ -113,5 +117,20 @@ public class NotifyVendorController implements NotifyVendorInterface {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void addVendorDetails() throws IOException {
+		String vendorName, vendorType, vendorContact = null;
+		System.out.println("You have chosen to add new vendor.");
+		System.out.println("Please enter the vendor name : ");
+		vendorName = cru.readString();
+		System.out.println("Please enter the vendor type: ");
+		vendorType = cru.readString();
+		System.out.println("Please enter the name of contact person: ");
+		vendorContact = cru.readString();
+		CsvUtilitiesInterface csvUtility = new CsvUtility();
+		Vendor vendor = new Vendor(vendorName, vendorType, vendorContact);
+		csvUtility.write(FilePathConstants.VENDOR_CSV, vendor);
 	}
 }

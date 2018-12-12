@@ -1,4 +1,4 @@
-package com.ebs.domaininterfaces;
+ package com.ebs.domaininterfaces;
 
 public interface ProfileInterface {
 

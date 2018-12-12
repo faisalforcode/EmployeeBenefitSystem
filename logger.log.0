@@ -1,1 +1,3 @@
-1::com.ebs.loggingServices.logtest::createLog::Tue Dec 11 03:41:05 PST 2018:: I'm in a logtest file.
+1::com.ebs.loggingServices.JavaLogging::printLog::Wed Dec 12 01:31:08 PST 2018::
+Welcome Eizat M! You have logged in successfully... 
+1::com.ebs.loggingServices.JavaLogging::printLog::Wed Dec 12 01:31:28 PST 2018::System Terminated

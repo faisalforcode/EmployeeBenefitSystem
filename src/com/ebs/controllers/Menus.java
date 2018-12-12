@@ -14,11 +14,13 @@ import com.ebs.domaininterfaces.ConsoleReaderInterface;
 import com.ebs.domaininterfaces.LoginInterface;
 import com.ebs.domaininterfaces.MakeElectionInterface;
 import com.ebs.domaininterfaces.MenusInterface;
-import com.ebs.domaininterfaces.NotifyVendorInterface;
+import com.ebs.domaininterfaces.ManageVendorInterface;
 import com.ebs.domaininterfaces.PrintReportInterface;
 import com.ebs.domaininterfaces.ProfileInterface;
+import com.ebs.loggingServices.JavaLogging;
 import com.ebs.techservices.CsvUtility;
 import com.ebs.techservicesinterfaces.CsvUtilitiesInterface;
+import com.ebs.techservicesinterfaces.LoggingHandler;
 
 public class Menus implements MenusInterface{
 
@@ -28,6 +30,7 @@ public class Menus implements MenusInterface{
 	ProfileInterface pvc = new ProfileController();
 	CsvUtilitiesInterface csvUtility = new CsvUtility();
 	MakeElectionInterface mec = new MakeElectionsController();
+	LoggingHandler loggerJava = new JavaLogging();
 
 	private String username;
 	private String password;
@@ -58,10 +61,12 @@ public class Menus implements MenusInterface{
 			System.out.println("\nInvalid option Selected.. ");
 			displayMainMenu();
 		}
+		loggerJava.printLog("Displaying Main Menu", Menus.class.getName());
 	}
 
-	private void exitSystem() {
+	private void exitSystem() throws IOException {
 		System.out.println("\nSystem terminated.... Thank you for using Employee Benefit System");
+		loggerJava.printLog("System Terminated", Menus.class.getName());
 		System.exit(0);
 	}
 
@@ -90,6 +95,8 @@ public class Menus implements MenusInterface{
 			User userInstance = loginController.login(username, password);
 			if (null != userInstance) {
 				System.out.println("\nWelcome " + userInstance.getName() + "! You have logged in successfully... ");
+				loggerJava.printLog("\nWelcome " + userInstance.getName() + "! You have logged in successfully... ", Menus.class.getName());
+
 				if (userInstance instanceof Employee) {
 					Employee emp = (Employee) userInstance;
 					employeeMainMenu(emp);
@@ -273,7 +280,7 @@ public class Menus implements MenusInterface{
 		} else if (menuItem == 3) {
 			vendorMainMenu(manager);
 		} else if (menuItem == 4) {
-			NotifyVendorInterface nvc = new NotifyVendorController();
+			ManageVendorInterface nvc = new ManageVendorController();
 			nvc.notifyVendor(manager);
 			managerMainMenu(manager);
 		} else if (menuItem == 5) {
@@ -296,21 +303,21 @@ public class Menus implements MenusInterface{
 		int selection = cru.readInt();
 
 		if (1 == selection) {
-			List<User> users = brc.generateReportforEmployeeWithNoEnrollment();
+			List<User> users = brc.getEmployeeWithNoEnrollment();
 			printReportInterface = printFactory.printReportImpl("NoInsuranceUsers");
 			printReportInterface.printReport(users, manager);
 			System.out.println("\n\nGenerate Another report");
 			generateBiReports(manager);
 			//printReportForNoInsuranceUsers(users, manager);
 		} else if (2 == selection) {
-			List<User> users = brc.generateReportForEmployeeInsuranceType();
+			List<User> users = brc.getEmployeeInsuranceType();
 			printReportInterface = printFactory.printReportImpl("InsuranceType");
 			printReportInterface.printReport(users, manager);
 			System.out.println("\n\nGenerate Another report");
 			generateBiReports(manager);
 			//printReportForVendorDistribution(users, manager);
 		} else if (3 == selection) {
-			List<User> users = brc.generateReportForEmployeeInsuranceType();
+			List<User> users = brc.getEmployeeInsuranceType();
 			printReportInterface = printFactory.printReportImpl("VendorDistribution");
 			printReportInterface.printReport(users, manager);
 			System.out.println("\n\nGenerate Another report");
@@ -343,12 +350,12 @@ public class Menus implements MenusInterface{
 		int menuitem = cru.readInt();
 
 		if (menuitem == 1) {
-			addVendorDetails();
+			ManageVendorInterface brc = new ManageVendorController(); 
+			brc.addVendorDetails();
 			System.out.println("");
 			vendorMainMenu(manager);
 		} else if (menuitem == 2) {
 			modifyvendordetails();
-			System.out.println("");
 			System.out.println("Sorry we are working on this part.");
 			vendorMainMenu(manager);
 		} else if (menuitem == 3) {
@@ -359,10 +366,10 @@ public class Menus implements MenusInterface{
 	}
 
 	private void modifyvendordetails() {
-		// TODO Auto-generated method stub
 
 	}
 
+	@SuppressWarnings("unused")
 	private void addVendorDetails() throws IOException {
 		String vendorName, vendorType, vendorContact = null;
 		System.out.println("You have chosen to add new vendor.");
